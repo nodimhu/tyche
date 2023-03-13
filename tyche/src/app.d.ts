@@ -4,7 +4,7 @@ declare global {
   namespace App {
     interface Platform {
       env: {
-        [K in never]: never; // empty env for now
+        SENTRY_DSN?: string;
       };
     }
   }
