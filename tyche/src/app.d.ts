@@ -2,10 +2,11 @@
 // for information about these interfaces
 declare global {
   namespace App {
-    // interface Error {}
-    // interface Locals {}
-    // interface PageData {}
-    // interface Platform {}
+    interface Platform {
+      env: {
+        [K in never]: never; // empty env for now
+      };
+    }
   }
 }
 
