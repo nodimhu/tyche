@@ -1,17 +1,17 @@
 import type { EnvironmentIface, EnvironmentVariables } from "./environment-iface";
 
-export class Environment<K extends keyof EnvironmentVariables> implements EnvironmentIface {
+export class Environment implements EnvironmentIface {
   private env: EnvironmentVariables;
 
-  constructor(platform: App.Platform) {
+  constructor(platform?: App.Platform) {
     this.env = { ...(platform?.env ?? process?.env) };
   }
 
-  public get(key: K): EnvironmentVariables[K] | undefined {
+  public get<K extends keyof EnvironmentVariables>(key: K): EnvironmentVariables[K] | undefined {
     return this.env[key];
   }
 
-  public require(key: K): Exclude<EnvironmentVariables[K], undefined> {
+  public require<K extends keyof EnvironmentVariables>(key: K): NonNullable<EnvironmentVariables[K]> {
     const value = this.env[key];
 
     if (value === undefined) {
