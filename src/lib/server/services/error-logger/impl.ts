@@ -1,10 +1,11 @@
-import type { RequestEvent } from "@sveltejs/kit";
-import type { EnvironmentIface } from "../environment";
-import type { ErrorEventLoggerIface } from "./error-event-logger-iface";
 import * as Sentry from "@sentry/svelte";
+import type { RequestEvent } from "@sveltejs/kit";
 
-export class SentryErrorEventLogger implements ErrorEventLoggerIface {
-  constructor(private readonly env: EnvironmentIface) {
+import type { Env } from "../env";
+import type { ErrorLogger } from "./types";
+
+export class SentryErrorLogger implements ErrorLogger {
+  constructor(private readonly env: Env) {
     Sentry.init({
       dsn: this.env.require("SENTRY_DSN"),
     });

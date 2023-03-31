@@ -8,8 +8,8 @@ export const handleError: HandleServerError = ({ error, event }) => {
   // which are expected HTTP error responses! (Also, only log in production.)
 
   if (!dev && event.platform) {
-    const { errorEventLogger } = getServerServices(event.platform);
-    errorEventLogger.log(error, event);
+    const { errorLogger } = getServerServices(event.platform);
+    errorLogger.log(error, event);
     return;
   }
 
