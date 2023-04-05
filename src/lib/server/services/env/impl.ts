@@ -4,7 +4,7 @@ export class PlatformOrProcessEnv implements Env {
   private env: EnvVars;
 
   constructor(platform?: App.Platform) {
-    this.env = { ...(platform?.env ?? process?.env) };
+    this.env = { ...(platform?.env ?? process?.env) } as EnvVars;
   }
 
   public get<K extends keyof EnvVars>(key: K): EnvVars[K] | undefined {

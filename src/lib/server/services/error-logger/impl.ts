@@ -2,6 +2,7 @@ import * as Sentry from "@sentry/svelte";
 import type { RequestEvent } from "@sveltejs/kit";
 
 import type { Env } from "../env";
+
 import type { ErrorLogger } from "./types";
 
 export class SentryErrorLogger implements ErrorLogger {
