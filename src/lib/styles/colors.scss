@@ -1,0 +1,29 @@
+$white: #fafafa;
+$black: #000;
+
+$gray-100: hsl(205, 38%, 95%);
+$gray-200: hsl(205, 40%, 80%);
+$gray-300: hsl(205, 40%, 70%);
+$gray-400: hsl(205, 40%, 60%);
+$gray-500: hsl(205, 40%, 50%);
+$gray-600: hsl(205, 40%, 40%);
+$gray-700: hsl(205, 40%, 30%);
+$gray-800: hsl(205, 40%, 20%);
+$gray-900: hsl(205, 40%, 10%);
+
+$light: $gray-100;
+$dark: $gray-900;
+
+$body-color-dark: $gray-200;
+
+$popover-header-color: var(--bs-body-color);
+
+$primary: #e4ce0d;
+$secondary: $gray-600;
+$success: #29d47e;
+$danger: #ff4040;
+$warning: #fff128;
+$info: #3af5d6;
+
+$form-switch-focus-color: $gray-500;
+$form-switch-checked-color: $gray-700;
