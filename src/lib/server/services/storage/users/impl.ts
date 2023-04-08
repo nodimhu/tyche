@@ -1,6 +1,7 @@
 import { USER_TOKEN_COOKIE_NAME } from "$lib/config/common";
-import type { Cookies } from "@sveltejs/kit";
 import jwt from "@tsndr/cloudflare-worker-jwt";
+
+import type { Cookies } from "@sveltejs/kit";
 
 import type {
   CreateUserParams,

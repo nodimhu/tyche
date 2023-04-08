@@ -1,4 +1,5 @@
 import * as Sentry from "@sentry/svelte";
+
 import type { RequestEvent } from "@sveltejs/kit";
 
 import type { Env } from "../env";

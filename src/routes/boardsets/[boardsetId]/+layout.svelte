@@ -1,0 +1,68 @@
+<script lang="ts">
+  import { page } from "$app/stores";
+  import SideNavBoardTree from "$lib/components/nav/side-nav/items/side-nav-board-tree.svelte";
+  import SideNavDeleteBoardPopper from "$lib/components/nav/side-nav/items/side-nav-delete-board-popper.svelte";
+  import SideNavDeleteBoardsetPopper from "$lib/components/nav/side-nav/items/side-nav-delete-boardset-popper.svelte";
+  import SideNavNewBoardPopper from "$lib/components/nav/side-nav/items/side-nav-new-board-popper.svelte";
+  import SideNav from "$lib/components/nav/side-nav/side-nav.svelte";
+  import PageLayout from "$lib/components/page-layout/page-layout.svelte";
+
+  import SideNavSeparator from "$lib/components/nav/side-nav/common/side-nav-separator.svelte";
+
+  export let data;
+
+  $: hasBoards = Object.keys(data.boards ?? {}).length > 0;
+</script>
+
+<PageLayout>
+  {#if data.boardset && data.boardsetIdParam}
+    <SideNav title={data.boardset.name}>
+      <SideNavBoardTree
+        boards={data.boards}
+        selectedBoardsetId={data.boardsetIdParam}
+        selectedYear={$page.data.yearParam}
+        selectedBoardId={$page.data.boardIdParam}
+      />
+
+      {#if hasBoards}
+        <SideNavSeparator />
+      {/if}
+
+      <SideNavNewBoardPopper
+        title={"Add a new board"}
+        year={$page.data.yearParam}
+        boardsetId={data.boardsetIdParam}
+        action={`/boardsets/${data.boardsetIdParam}?/create-board`}
+        actionText="Add"
+      />
+
+      <!-- {#if $page.data.boardIdParam}
+        <SideNavNewBoardPopper
+          title={"Copy this board"}
+          year={$page.data.yearParam}
+          action={`/boardsets/${data.boardsetIdParam}?/copy`}
+          actionText="Copy"
+          referenceBoardsetId={data.boardsetIdParam}
+          referenceBoardId={$page.data.boardIdParam}
+        />
+      {/if} -->
+
+      <div slot="bottom">
+        {#if $page.data.boardIdParam}
+          <SideNavDeleteBoardPopper
+            action={`/boardsets/${data.boardsetIdParam}?/delete-board`}
+            boardsetId={data.boardsetIdParam}
+            boardId={$page.data.boardIdParam}
+          />
+        {/if}
+
+        <SideNavDeleteBoardsetPopper
+          action={"/boardsets?/delete-boardset"}
+          boardsetId={data.boardsetIdParam}
+        />
+      </div>
+    </SideNav>
+  {/if}
+
+  <slot />
+</PageLayout>

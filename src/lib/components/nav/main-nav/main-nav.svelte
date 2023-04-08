@@ -2,7 +2,6 @@
   import { page } from "$app/stores";
 
   import AppLogo from "$lib/components/common/app-logo.svelte";
-  import ThemeSwitcher from "../../common/theme-switcher.svelte";
 </script>
 
 <nav class="main-nav" data-bs-theme="dark">
@@ -14,9 +13,9 @@
   <slot />
   <div class="whitespace" />
   <slot name="bottom" />
-  <div class="theme-switcher">
+  <!-- <div class="theme-switcher">
     <ThemeSwitcher />
-  </div>
+  </div> -->
 </nav>
 
 <style lang="scss">
@@ -28,6 +27,7 @@
     column-gap: 0.5em;
     color: var(--bs-gray-200);
     background-color: var(--bs-gray-800);
+    padding-bottom: 0.5em;
 
     :global(.main-nav-item-wrapper) {
       width: 64px;

@@ -3,7 +3,7 @@
   "singleQuote": false,
   "trailingComma": "all",
   "printWidth": 88,
-  "importOrder": ["common/", "^../", "^./"],
+  "importOrder": ["^svelte", "^@sveltejs", "common/", "^../", "^./"],
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrderParserPlugins": ["typescript", "decorators"]

@@ -10,7 +10,7 @@
     align-items: center;
     i {
       flex-grow: 1;
-      height: 1px;
+      height: 2px;
       background-color: var(--bs-gray-800);
     }
   }

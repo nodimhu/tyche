@@ -1,52 +1,61 @@
 <script lang="ts">
   import { page } from "$app/stores";
+
+  import { createEventDispatcher } from "svelte";
   import { CaretRightFill } from "svelte-bootstrap-icons";
 
   export let tag: "a" | "button" = "a";
-
+  export let element: HTMLElement | undefined = undefined;
   export let href: string | undefined = undefined;
-  export let text: string;
   export let color:
+    | "default"
     | "danger"
     | "dark"
     | "info"
     | "light"
     | "primary"
     | "success"
-    | "warning"
-    | undefined = undefined;
-  export let padding: number | undefined = undefined;
-  export let isActive: boolean | undefined = undefined;
+    | "warning" = "default";
+  export let padding = 0;
+  export let active: boolean | undefined = undefined;
+  export let nocaret = false;
 
-  $: isActiveUrl = !!href && $page.url.pathname.startsWith(href);
+  const dispatch = createEventDispatcher();
+
+  $: activeUrl = !!href && $page.url.pathname.startsWith(href);
 </script>
 
 <svelte:element
   this={tag}
-  class:active={isActive ?? isActiveUrl}
+  bind:this={element}
+  class:active={active ?? activeUrl}
   class={`side-nav-link btn btn-link bg-opacity-50 ${color}`}
   style={padding ? `padding-left: ${padding * 2}em` : ""}
-  aria-label={text}
+  on:click={() => dispatch("click")}
+  on:blur={() => dispatch("blur")}
   {href}
 >
-  {#if isActive ?? isActiveUrl}
+  {#if (active ?? activeUrl) && !nocaret}
     <CaretRightFill width="1em" height="1em" />
   {/if}
-  {#if $$slots.default}
-    <div class="icon">
-      <slot />
-    </div>
+  {#if $$slots.icon}
+    <span class="icon" aria-hidden="true">
+      <slot name="icon" />
+    </span>
   {/if}
-  <div class="text">
-    {text}
-  </div>
+  {#if $$slots.default}
+    <span class="text">
+      <slot />
+    </span>
+  {/if}
 </svelte:element>
 
 <style lang="scss">
-  @import "bootstrap/scss/functions";
   @import "$lib/styles/colors";
 
   .side-nav-link {
+    width: 100%;
+
     display: flex;
     align-items: center;
     column-gap: 0.5em;

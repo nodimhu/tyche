@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { MoonFill, SunFill } from "svelte-bootstrap-icons";
 
-  let theme: "light" | "dark" = "light";
+  let theme: "light" | "dark" = "dark";
 
   const toggleTheme = () => {
     theme = theme === "light" ? "dark" : "light";
