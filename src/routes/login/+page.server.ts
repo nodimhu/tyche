@@ -1,26 +1,12 @@
 import { getServerServices } from "$lib/server/services";
-import jwt from "@tsndr/cloudflare-worker-jwt";
 
 import { fail, redirect } from "@sveltejs/kit";
 
 import type { Actions } from "./$types";
 
 export const actions: Actions = {
-  login: async ({ request, platform, cookies }) => {
-    const { env, Users } = getServerServices(platform);
-    const appSigningSecret = env.require("APP_SIGNING_SECRET");
-
-    const createJwt = async (username: string): Promise<void> => {
-      const token = await jwt.sign(
-        {
-          sub: username,
-          exp: Math.round(new Date().getTime() / 1000 + 86400),
-        },
-        appSigningSecret,
-      );
-
-      cookies.set("tyche-user", token, { maxAge: 86400, secure: true });
-    };
+  default: async ({ request, platform, cookies }) => {
+    const { Users } = getServerServices(platform);
 
     const formData = await request.formData();
 
@@ -30,18 +16,17 @@ export const actions: Actions = {
     if (!username || !password) {
       return fail(400, {
         username,
-        usernameMissing: !username,
-        passwordMissing: !password,
+        unauthorized: true,
       });
     }
 
     const isValidLogin = await Users().verifyUserPassword({ username, password });
 
     if (isValidLogin) {
-      await createJwt(username);
+      await Users().createJwtCookie(username, cookies);
       throw redirect(302, "/");
     }
 
-    return fail(400, { username, unauthorized: true });
+    return fail(401, { username, unauthorized: true });
   },
 };

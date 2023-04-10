@@ -1,26 +1,40 @@
 import { dev } from "$app/environment";
+import { TYCHE_USER_JWT_HEADER_NAME } from "$lib/config/common";
 import { getServerServices } from "$lib/server/services";
 
-import { type Handle, type HandleServerError, redirect } from "@sveltejs/kit";
+import { type Handle, type HandleServerError, error, redirect } from "@sveltejs/kit";
 
 export const handle: Handle = async ({ event, resolve }) => {
   const { Users } = getServerServices(event.platform);
-  const users = Users();
+
+  const url = new URL(event.request.url);
+
+  if (url.pathname.startsWith("/api")) {
+    if (
+      !(await Users().verifyJwt(event.request.headers.get(TYCHE_USER_JWT_HEADER_NAME)))
+    ) {
+      throw error(401);
+    }
+
+    return await resolve(event);
+  }
 
   const isLoginUrl = event.url.pathname.startsWith("/login");
 
   if (isLoginUrl) {
-    if (await users.verifyToken(event.cookies)) {
-      throw redirect(302, "/boardsets");
+    if (await Users().verifyJwtCookie(event.cookies)) {
+      throw redirect(302, "/");
     }
+
     return await resolve(event);
   }
 
-  if (!(await users.verifyToken(event.cookies))) {
+  if (!(await Users().verifyJwtCookie(event.cookies))) {
     throw redirect(302, "/login");
   }
 
-  await users.renewToken(event.cookies);
+  await Users().renewJwtCookie(event.cookies);
+
   return await resolve(event);
 };
 

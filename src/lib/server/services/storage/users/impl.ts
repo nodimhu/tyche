@@ -1,4 +1,4 @@
-import { USER_TOKEN_COOKIE_NAME } from "$lib/config/common";
+import { TYCHE_USER_JWT_COOKIE_NAME } from "$lib/config/common";
 import jwt from "@tsndr/cloudflare-worker-jwt";
 
 import type { Cookies } from "@sveltejs/kit";
@@ -27,10 +27,10 @@ export class UsersDoOrFetchStorage
     super("root", env.get("USERS"), env.get("USERS_DEV_URL"));
   }
 
-  async createToken(username: string, cookies: Cookies): Promise<void> {
+  async createJwtCookie(username: string, cookies: Cookies): Promise<void> {
     const appSigningSecret = this.env.require("APP_SIGNING_SECRET");
 
-    const userToken = await jwt.sign(
+    const userJwt = await jwt.sign(
       {
         sub: username,
         exp: Math.round(new Date().getTime() / 1000 + 86400),
@@ -38,46 +38,44 @@ export class UsersDoOrFetchStorage
       appSigningSecret,
     );
 
-    cookies.set(USER_TOKEN_COOKIE_NAME, userToken, {
+    cookies.set(TYCHE_USER_JWT_COOKIE_NAME, userJwt, {
       maxAge: 86400,
       secure: true,
+      httpOnly: false,
+      path: "/",
+      sameSite: "lax",
     });
   }
 
-  async verifyToken(cookies: Cookies): Promise<boolean> {
-    const userToken = cookies.get(USER_TOKEN_COOKIE_NAME);
+  async verifyJwt(token?: string | null): Promise<boolean> {
     const appSigningSecret = this.env.require("APP_SIGNING_SECRET");
 
     return (
-      !!userToken &&
-      (await jwt.verify(userToken, appSigningSecret)) &&
-      !!jwt.decode(userToken).payload.sub
+      !!token &&
+      (await jwt.verify(token, appSigningSecret)) &&
+      !!jwt.decode(token).payload.sub
     );
   }
 
-  async renewToken(cookies: Cookies): Promise<void> {
-    const userToken = cookies.get(USER_TOKEN_COOKIE_NAME);
-    const userTokenSubject = userToken && jwt.decode(userToken).payload.sub;
+  async verifyJwtCookie(cookies: Cookies): Promise<boolean> {
+    const userJwt = cookies.get(TYCHE_USER_JWT_COOKIE_NAME);
 
-    if (!this.verifyToken(cookies) || !userToken || !userTokenSubject) {
+    return !!userJwt && (await this.verifyJwt(userJwt));
+  }
+
+  async renewJwtCookie(cookies: Cookies): Promise<void> {
+    const userJwt = cookies.get(TYCHE_USER_JWT_COOKIE_NAME);
+    const username = userJwt && jwt.decode(userJwt).payload.sub;
+
+    if (!userJwt || !username || !(await this.verifyJwt(userJwt))) {
       throw new Error("Cannot renew invalid user token.");
     }
 
-    const appSigningSecret = this.env.require("APP_SIGNING_SECRET");
-
-    const newToken = await jwt.sign(
-      {
-        sub: userTokenSubject,
-        exp: Math.round(Date.now() / 1000 + 86400),
-      },
-      appSigningSecret,
-    );
-
-    cookies.set(USER_TOKEN_COOKIE_NAME, newToken, { maxAge: 86400, secure: true });
+    await this.createJwtCookie(username, cookies);
   }
 
   async whoAmI(cookies: Cookies): Promise<string | null> {
-    const userToken = cookies.get(USER_TOKEN_COOKIE_NAME);
+    const userToken = cookies.get(TYCHE_USER_JWT_COOKIE_NAME);
     const userTokenSubject = userToken && jwt.decode(userToken).payload.sub;
 
     if (!userTokenSubject) {
