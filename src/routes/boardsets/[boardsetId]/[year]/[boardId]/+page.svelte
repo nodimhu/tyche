@@ -1,6 +1,7 @@
 <script>
   import BoardAccounts from "$lib/components/board/board-accounts.svelte";
   import BoardGrid from "$lib/components/board/board-grid.svelte";
+  import BoardIncome from "$lib/components/board/board-income.svelte";
   import PageContainer from "$lib/components/page-layout/page-container.svelte";
   import { boardStore } from "$lib/stores/board-store";
 
@@ -31,6 +32,15 @@
         boardsetId={data.boardsetIdParam ?? ""}
         boardId={data.boardIdParam}
         accounts={$boardStore.accounts}
+        currency={boardCurrency}
+        locale={userLocale}
+      />
+      <BoardIncome
+        slot="income"
+        boardsetId={data.boardsetIdParam ?? ""}
+        boardId={data.boardIdParam}
+        transactions={$boardStore.transactions}
+        savingsGoalPercentage={$boardStore.parameters.savingsGoalPercentage}
         currency={boardCurrency}
         locale={userLocale}
       />
