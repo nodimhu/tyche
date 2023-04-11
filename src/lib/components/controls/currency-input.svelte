@@ -4,6 +4,11 @@
   export let id: string | undefined = undefined;
   export let placeholder = "";
   export let name = "";
+  export let required = false;
+  export let readonly = false;
+  export let disabled = false;
+  export let success = false;
+  export let danger = false;
   export let autocomplete: string | null = null;
 
   export let value = 0;
@@ -35,18 +40,23 @@
   };
 
   const handleChange = (inputElement: HTMLInputElement) => {
-    const parsedInput = parseInput(inputElement);
+    const newValue = parseInput(inputElement);
 
-    if (parsedInput === null || parsedInput === value) {
+    if (newValue === null || newValue === value) {
       displayFormatted(inputElement);
       dispatch("blur", { target: inputElement });
       return;
     }
 
-    value = parsedInput;
+    if (required && newValue === null) {
+      inputElement.value = value.toString();
+      displayFormatted(inputElement);
+      dispatch("blur", { target: inputElement });
+      return;
+    }
 
     displayFormatted(inputElement);
-    setTimeout(() => dispatch("blur-change", { target: inputElement }));
+    dispatch("blur-change", { target: inputElement, value: newValue });
   };
 
   const onFocus = (event: FocusEvent) => {
@@ -71,24 +81,46 @@
       (event.target as HTMLInputElement).blur();
     }
   };
-
-  let inputElement: HTMLInputElement;
-
-  $: inputElement?.setAttribute(
-    "value",
-    Intl.NumberFormat(locale, { style: "currency", currency }).format(value),
-  );
 </script>
 
-<input type="hidden" {name} {value} />
 <input
-  bind:this={inputElement}
   {id}
+  {name}
+  value={Intl.NumberFormat(locale, {
+    style: "currency",
+    currency,
+  }).format(value)}
+  {required}
+  {readonly}
+  {disabled}
   {placeholder}
   {autocomplete}
   type="text"
   class="form-control"
+  class:readonly
+  class:danger
+  class:success
   on:focus={onFocus}
   on:blur={onBlur}
   on:keydown={onKeyDown}
 />
+
+<style lang="scss">
+  @import "$lib/styles/colors";
+
+  .readonly {
+    background-color: var(--bs-secondary-bg);
+  }
+
+  .success {
+    z-index: 1;
+    border: 1px solid $success;
+    background-color: rgba($success, 0.2);
+  }
+
+  .danger {
+    z-index: 1;
+    border: 1px solid $danger;
+    background-color: rgba($danger, 0.2);
+  }
+</style>

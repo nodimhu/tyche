@@ -17,7 +17,7 @@
 
   <slot />
 
-  <div class="d-flex justify-content-center">
+  <div class="buttons">
     <button class="btn btn-danger">
       {confirmText}
     </button>
@@ -26,8 +26,15 @@
 </form>
 
 <style lang="scss">
-  form button {
-    min-width: 5em;
-    transition: width 0.25s ease;
+  form {
+    .buttons {
+      display: flex;
+      column-gap: 0.5em;
+      justify-content: center;
+    }
+    button {
+      min-width: 5em;
+      transition: width 0.25s ease;
+    }
   }
 </style>

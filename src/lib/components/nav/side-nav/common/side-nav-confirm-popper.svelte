@@ -21,7 +21,7 @@
 
       <button
         slot="buttons"
-        class="btn btn-link text-secondary-emphasis"
+        class="btn btn-outline-secondary"
         on:click|preventDefault={toggle}
       >
         {cancelText}

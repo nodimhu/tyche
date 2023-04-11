@@ -34,7 +34,7 @@
       <button type="submit" class="btn btn-primary"> Create </button>
     </form>
 
-    <button class="btn btn-link" on:click={toggle}>Cancel</button>
+    <button class="btn btn-outline-secondary" on:click={toggle}>Cancel</button>
   </div>
 </MainNavPopper>
 
