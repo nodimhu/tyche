@@ -53,6 +53,24 @@
         currency={boardCurrency}
         locale={userLocale}
       />
+      <BoardExpenses
+        slot="recurring-expenses"
+        boardsetId={data.boardsetIdParam ?? ""}
+        boardId={data.boardIdParam}
+        transactions={$boardStore.transactions}
+        cadence="recurring"
+        currency={boardCurrency}
+        locale={userLocale}
+      />
+      <BoardExpenses
+        slot="occasional-expenses"
+        boardsetId={data.boardsetIdParam ?? ""}
+        boardId={data.boardIdParam}
+        transactions={$boardStore.transactions}
+        cadence="occasional"
+        currency={boardCurrency}
+        locale={userLocale}
+      />
     </BoardGrid>
     {#if devMode}
       <br /><br />
