@@ -1,13 +1,17 @@
-import type { Account, BoardData, Transaction } from "./types";
+import type { Account, Accounts, Parameters, Transaction, Transactions } from "./types";
 
-export type GetAccountsResult = BoardData["accounts"];
+export type GetAccountsResult = Accounts;
 
-export type GetTransactionsResult = BoardData["transactions"];
+export type GetTransactionsResult = Transactions;
 
-export type CreateAccountResult = Partial<BoardData["accounts"]>;
+export type CreateAccountResult = GetAccountsResult;
 
-export type CreateTransactionResult = Partial<BoardData["transactions"]>;
+export type CreateTransactionResult = GetTransactionsResult;
 
 export type UpdateAccountResult = Account;
 
 export type UpdateTransactionResult = Transaction;
+
+export type GetParametersResult = Parameters;
+
+export type UpdateParametersResult = GetParametersResult;

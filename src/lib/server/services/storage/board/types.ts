@@ -4,14 +4,17 @@ import type {
   DeleteAccountParams,
   DeleteTransactionParams,
   UpdateAccountParams,
+  UpdateParametersParams,
   UpdateTransactionParams,
 } from "$lib/server/models/objects/board/params";
 import type {
   CreateAccountResult,
   CreateTransactionResult,
   GetAccountsResult,
+  GetParametersResult,
   GetTransactionsResult,
   UpdateAccountResult,
+  UpdateParametersResult,
   UpdateTransactionResult,
 } from "$lib/server/models/objects/board/results";
 
@@ -24,4 +27,6 @@ export interface BoardStorage {
   createTransaction(params: CreateTransactionParams): Promise<CreateTransactionResult>;
   updateTransaction(params: UpdateTransactionParams): Promise<UpdateTransactionResult>;
   deleteTransaction(params: DeleteTransactionParams): Promise<void>;
+  getParameters(): Promise<GetParametersResult>;
+  updateParameters(params: UpdateParametersParams): Promise<UpdateParametersResult>;
 }

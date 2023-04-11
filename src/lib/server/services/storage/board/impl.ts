@@ -9,6 +9,7 @@ import type {
 import type {
   Account,
   Accounts,
+  Parameters,
   Transaction,
   Transactions,
 } from "$lib/server/models/objects/board/types";
@@ -42,7 +43,7 @@ export class BoardDoOrFetchStorage
     return await this.operationRequest("getAccounts", undefined);
   }
 
-  async createAccount(params: CreateAccountParams): Promise<Partial<Accounts>> {
+  async createAccount(params: CreateAccountParams): Promise<Accounts> {
     await this.checkBoardExists();
     return await this.operationRequest("createAccount", params);
   }
@@ -61,9 +62,7 @@ export class BoardDoOrFetchStorage
     return await this.operationRequest("getTransactions", undefined);
   }
 
-  async createTransaction(
-    params: CreateTransactionParams,
-  ): Promise<Partial<Transactions>> {
+  async createTransaction(params: CreateTransactionParams): Promise<Transactions> {
     await this.checkBoardExists();
     return await this.operationRequest("createTransaction", params);
   }
@@ -76,5 +75,14 @@ export class BoardDoOrFetchStorage
   async deleteTransaction(params: DeleteTransactionParams): Promise<void> {
     await this.checkBoardExists();
     return await this.operationRequest("deleteTransaction", params);
+  }
+
+  async getParameters(): Promise<Parameters> {
+    return await this.operationRequest("getParameters", undefined);
+  }
+
+  async updateParameters(params: Partial<Parameters>): Promise<Parameters> {
+    await this.checkBoardExists();
+    return await this.operationRequest("updateParameters", params);
   }
 }

@@ -8,7 +8,7 @@ export type Account = {
 export type Transaction = {
   description: string;
   type: "income" | "expense";
-  cadence: "recurring" | "single";
+  cadence: "recurring" | "occasional";
   amount: number;
 };
 
@@ -20,7 +20,12 @@ export type Transactions = {
   [transactionId: string]: Transaction;
 };
 
+export type Parameters = {
+  savingsGoalPercentage: number;
+};
+
 export type BoardData = {
   accounts: Accounts;
   transactions: Transactions;
+  parameters: Parameters;
 };
