@@ -18,7 +18,6 @@
     | "warning" = "default";
   export let padding = 0;
   export let active: boolean | undefined = undefined;
-  export let nocaret = false;
 
   const dispatch = createEventDispatcher();
 
@@ -35,9 +34,6 @@
   on:blur={() => dispatch("blur")}
   {href}
 >
-  {#if (active ?? activeUrl) && !nocaret}
-    <CaretRightFill width="1em" height="1em" />
-  {/if}
   {#if $$slots.icon}
     <span class="icon" aria-hidden="true">
       <slot name="icon" />

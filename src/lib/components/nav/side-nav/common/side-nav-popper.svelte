@@ -20,7 +20,6 @@
     tag={"button"}
     bind:element={sideNavItemElement}
     active={open}
-    nocaret={true}
     on:click={toggle}
   >
     <slot slot="icon" name="icon" />
