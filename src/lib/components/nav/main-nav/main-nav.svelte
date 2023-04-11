@@ -44,8 +44,8 @@
     }
   }
 
-  .logo,
-  .theme-switcher {
+  .logo {
+    // .theme-switcher {
     display: grid;
     align-content: center;
     justify-content: center;
@@ -60,9 +60,9 @@
     margin-bottom: 0.5em;
   }
 
-  .theme-switcher {
-    margin: 0.5em 0;
-  }
+  // .theme-switcher {
+  //   margin: 0.5em 0;
+  // }
 
   .whitespace {
     flex-grow: 1;
@@ -84,8 +84,8 @@
       width: 64px;
     }
 
-    .theme-switcher {
-      margin: 0 0.5em;
-    }
+    // .theme-switcher {
+    //   margin: 0 0.5em;
+    // }
   }
 </style>
