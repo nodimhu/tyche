@@ -28,6 +28,7 @@ export const load: LayoutServerLoad = async ({ cookies, platform, params }) => {
     board: {
       accounts: await board.getAccounts(),
       transactions: await board.getTransactions(),
+      parameters: await board.getParameters(),
     },
   };
 };
