@@ -1,8 +1,9 @@
-<script>
-  import SideNavItem from "$lib/components/nav/side-nav/common/side-nav-item.svelte";
-  import SideNavSeparator from "$lib/components/nav/side-nav/common/side-nav-separator.svelte";
+<script lang="ts">
   import SideNav from "$lib/components/nav/side-nav/side-nav.svelte";
   import PageLayout from "$lib/components/page-layout/page-layout.svelte";
+
+  import SideNavItem from "$lib/components/nav/side-nav/common/side-nav-item.svelte";
+  import SideNavSeparator from "$lib/components/nav/side-nav/common/side-nav-separator.svelte";
 
   export let data;
 </script>

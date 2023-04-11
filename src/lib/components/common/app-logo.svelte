@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { Bank2 } from "svelte-bootstrap-icons";
 </script>
 

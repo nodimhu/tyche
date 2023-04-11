@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import BoardAccounts from "$lib/components/board/board-accounts.svelte";
   import BoardExpenses from "$lib/components/board/board-expenses.svelte";
   import BoardGrid from "$lib/components/board/board-grid.svelte";
