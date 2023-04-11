@@ -9,23 +9,23 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   const url = new URL(event.request.url);
 
+  if (url.pathname === "/[fallback]") {
+    return await resolve(event); // allow fallback prerender
+  }
+
   if (url.pathname.startsWith("/api")) {
     if (
       !(await Users().verifyJwt(event.request.headers.get(TYCHE_USER_JWT_HEADER_NAME)))
     ) {
       throw error(401);
     }
-
     return await resolve(event);
   }
 
-  const isLoginUrl = event.url.pathname.startsWith("/login");
-
-  if (isLoginUrl) {
+  if (url.pathname.startsWith("/login")) {
     if (await Users().verifyJwtCookie(event.cookies)) {
       throw redirect(302, "/");
     }
-
     return await resolve(event);
   }
 
