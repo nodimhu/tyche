@@ -1,4 +1,4 @@
-<div class="page-container p-3">
+<div class="page-container p-4">
   <slot />
 </div>
 

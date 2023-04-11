@@ -4,6 +4,8 @@
     BoardsetBoardsData,
   } from "$lib/server/models/objects/boardset-boards/types";
 
+  import { ChevronDown, ChevronRight } from "svelte-bootstrap-icons";
+
   import SideNavItem from "../common/side-nav-item.svelte";
 
   export let boards: BoardsetBoardsData["boards"] | null = {};
@@ -25,7 +27,11 @@
     href={"/boardsets/" + selectedBoardsetId + "/" + year}
     active={selectedYear === year && !selectedBoardId}
   >
-    {year}
+    {#if selectedYear === year}
+      <ChevronDown /> {year}
+    {:else}
+      <ChevronRight /> {year}
+    {/if}
   </SideNavItem>
 
   {#if selectedYear === year}
