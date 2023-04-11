@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Trash } from "svelte-bootstrap-icons";
+  import TrashIcon from "$lib/components/bootstrap-icons/trash-icon.svelte";
 
   import SideNavConfirmPopper from "../common/side-nav-confirm-popper.svelte";
 
@@ -13,7 +13,7 @@
   cancelText="No, keep this boardset"
   data={{ boardsetId }}
 >
-  <Trash slot="icon" width="1.25em" height="1.25em" />
+  <TrashIcon slot="icon" size="1.25em" />
   <span slot="text"> Delete this boardset </span>
 
   This action is irreversible and will result in the deletion of the currently open

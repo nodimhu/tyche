@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PersonCircle } from "svelte-bootstrap-icons";
+  import PersonCircleIcon from "$lib/components/bootstrap-icons/person-circle-icon.svelte";
 
   import MainNavMenu, {
     type MainNavMenuSubItems,
@@ -10,5 +10,5 @@
 </script>
 
 <MainNavMenu subItemGroups={subItems} {isActive}>
-  <PersonCircle width="2em" height="2em" />
+  <PersonCircleIcon size="2em" />
 </MainNavMenu>

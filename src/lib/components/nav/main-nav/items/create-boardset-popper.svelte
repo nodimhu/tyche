@@ -1,8 +1,8 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import PlusCircleIcon from "$lib/components/bootstrap-icons/plus-circle-icon.svelte";
 
   import { createEventDispatcher } from "svelte";
-  import { PlusCircle } from "svelte-bootstrap-icons";
 
   import MainNavPopper from "../common/main-nav-popper.svelte";
 
@@ -18,7 +18,7 @@
 
 <MainNavPopper title="Create a new boardset" let:open let:toggle>
   <div slot="toggle" class="create-boardset-popper-toggle" class:open>
-    <PlusCircle width="2em" height="2em" />
+    <PlusCircleIcon size="2em" />
   </div>
 
   <div class="create-boardset-popper">

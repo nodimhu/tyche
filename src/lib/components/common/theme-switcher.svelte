@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { MoonFill, SunFill } from "svelte-bootstrap-icons";
+
+  import MoonFillIcon from "../bootstrap-icons/moon-fill-icon.svelte";
+  import SunFillIcon from "../bootstrap-icons/sun-fill-icon.svelte";
 
   let theme: "light" | "dark" = "dark";
 
@@ -20,7 +22,7 @@
 
 <div class="theme-switcher">
   <div class="light" style="opacity: {theme === 'light' ? 1 : 0.5}">
-    <SunFill />
+    <SunFillIcon />
   </div>
   <div class="form-check form-switch">
     <input
@@ -33,7 +35,7 @@
     />
   </div>
   <div class="dark" style="opacity: {theme === 'dark' ? 1 : 0.5}">
-    <MoonFill width="0.8em" />
+    <MoonFillIcon size="0.8em" />
   </div>
 </div>
 

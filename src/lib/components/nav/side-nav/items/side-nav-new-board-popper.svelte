@@ -1,7 +1,6 @@
 <script lang="ts">
+  import PlusCircleIcon from "$lib/components/bootstrap-icons/plus-circle-icon.svelte";
   import AddBoardForm from "$lib/components/forms/add-board-form.svelte";
-
-  import { PlusCircle } from "svelte-bootstrap-icons";
 
   import SideNavPopper from "../common/side-nav-popper.svelte";
 
@@ -14,7 +13,7 @@
 </script>
 
 <SideNavPopper {title} let:toggle>
-  <PlusCircle slot="icon" width="1.25em" height="1.25em" />
+  <PlusCircleIcon slot="icon" size="1.25em" />
   <span slot="text">{title}</span>
 
   <div class="new-board-popper">

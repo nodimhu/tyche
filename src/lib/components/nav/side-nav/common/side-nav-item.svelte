@@ -2,7 +2,6 @@
   import { page } from "$app/stores";
 
   import { createEventDispatcher } from "svelte";
-  import { CaretRightFill } from "svelte-bootstrap-icons";
 
   export let tag: "a" | "button" = "a";
   export let element: HTMLElement | undefined = undefined;

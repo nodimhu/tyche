@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Circle } from "svelte-bootstrap-icons";
+  import CircleIcon from "$lib/components/bootstrap-icons/circle-icon.svelte";
 
   import MainNavLink from "../common/main-nav-link.svelte";
 
@@ -14,7 +14,7 @@
 </script>
 
 <MainNavLink {href} {isActive}>
-  <Circle width="2em" height="2em" />
+  <CircleIcon size="2em" />
   <div class="boardset-initials">
     <small>
       {boarsetInitials}

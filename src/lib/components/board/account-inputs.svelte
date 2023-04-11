@@ -10,8 +10,9 @@
   import { boardStore } from "$lib/stores/board-store";
   import { v4 as uuidv4 } from "uuid";
 
-  import { Trash } from "svelte-bootstrap-icons";
   import { fade } from "svelte/transition";
+
+  import TrashIcon from "../bootstrap-icons/trash-icon.svelte";
 
   export let boardsetId: string;
   export let boardId: string;
@@ -159,7 +160,7 @@
       transition:fade={{ duration: 250 }}
       on:click={onDelete}
     >
-      <Trash />
+      <TrashIcon />
     </button>
   {/if}
 </div>

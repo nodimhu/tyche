@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Bank2 } from "svelte-bootstrap-icons";
+  import Bank2Icon from "../bootstrap-icons/bank2-icon.svelte";
 </script>
 
-<Bank2 width="2em" height="2em" />
+<Bank2Icon size="2em" />

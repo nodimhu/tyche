@@ -1,10 +1,10 @@
 <script lang="ts">
+  import ChevronDownIcon from "$lib/components/bootstrap-icons/chevron-down-icon.svelte";
+  import ChevronRightIcon from "$lib/components/bootstrap-icons/chevron-right-icon.svelte";
   import type {
     BoardData,
     BoardsetBoardsData,
   } from "$lib/server/models/objects/boardset-boards/types";
-
-  import { ChevronDown, ChevronRight } from "svelte-bootstrap-icons";
 
   import SideNavItem from "../common/side-nav-item.svelte";
 
@@ -28,9 +28,9 @@
     active={selectedYear === year && !selectedBoardId}
   >
     {#if selectedYear === year}
-      <ChevronDown /> {year}
+      <ChevronDownIcon /> {year}
     {:else}
-      <ChevronRight /> {year}
+      <ChevronRightIcon /> {year}
     {/if}
   </SideNavItem>
 
