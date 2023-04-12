@@ -74,7 +74,7 @@
 />
 
 <style lang="scss">
-  @import "$lib/styles/colors";
+  @import "$lib/styles/variables";
 
   .readonly {
     background-color: var(--bs-secondary-bg);
@@ -82,13 +82,19 @@
 
   .success {
     z-index: 1;
-    border: 1px solid $success;
+    box-shadow: inset 0 0 0 1px $success;
     background-color: rgba($success, 0.2);
+    &:focus {
+      box-shadow: $focus-ring-box-shadow, inset 0 0 0 1px $success;
+    }
   }
 
   .danger {
     z-index: 1;
-    border: 1px solid var(--bs-danger);
+    box-shadow: inset 0 0 0 1px $danger;
     background-color: rgba($danger, 0.2);
+    &:focus {
+      box-shadow: $focus-ring-box-shadow, inset 0 0 0 1px $danger;
+    }
   }
 </style>
