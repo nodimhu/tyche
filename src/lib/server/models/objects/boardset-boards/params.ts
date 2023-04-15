@@ -11,4 +11,8 @@ export type CreateBoardParams = {
   month: number;
 };
 
+export type CopyBoardParams = {
+  boardId: string;
+} & CreateBoardParams;
+
 export type DeleteBoardParams = GetBoardParams;

@@ -1,4 +1,5 @@
 import type {
+  CopyBoardParams,
   CreateBoardParams,
   DeleteBoardParams,
   GetBoardParams,
@@ -50,6 +51,13 @@ export class BoardsetBoardsDoOrFetchStorage
   ): Promise<{ [year: string]: { [boardId: string]: BoardData } }> {
     await this.checkBoardsetExists();
     return await this.operationRequest("createBoard", params);
+  }
+
+  async copyBoard(
+    params: CopyBoardParams,
+  ): Promise<{ [year: string]: { [boardId: string]: BoardData } }> {
+    await this.checkBoardsetExists();
+    return await this.operationRequest("copyBoard", params);
   }
 
   async deleteBoard(params: DeleteBoardParams): Promise<void> {
