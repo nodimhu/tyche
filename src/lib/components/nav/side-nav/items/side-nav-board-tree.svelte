@@ -13,7 +13,7 @@
   export let selectedYear = "";
   export let selectedBoardId = "";
 
-  const getSortedBoardEntries = (boardsOfYear: Record<string, BoardData>) => {
+  const sortedBoardEntries = (boardsOfYear: Record<string, BoardData>) => {
     return Object.entries(boardsOfYear).sort(
       ([_A, boardDataA], [_B, boardDataB]) => boardDataA.month - boardDataB.month,
     );
@@ -22,7 +22,7 @@
   $: boardYears = Object.keys(boards ?? {}).reverse();
 </script>
 
-{#each boardYears as year}
+{#each boardYears as year (year)}
   <SideNavItem
     href={"/boardsets/" + selectedBoardsetId + "/" + year}
     active={selectedYear === year && !selectedBoardId}
@@ -35,7 +35,7 @@
   </SideNavItem>
 
   {#if selectedYear === year}
-    {#each getSortedBoardEntries(boards?.[year] ?? {}) as [boardId, boardData]}
+    {#each sortedBoardEntries(boards?.[year] ?? {}) as [boardId, boardData] (boardId)}
       <SideNavItem
         padding={1}
         href={`/boardsets/${selectedBoardsetId}/${year}/${boardId}`}

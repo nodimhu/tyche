@@ -39,7 +39,7 @@
   <PageLayout>
     <MainNav>
       {#if $page.data.username}
-        {#each boardsetEntries as [boardsetId, boardsetData]}
+        {#each boardsetEntries as [boardsetId, boardsetData] (boardsetId)}
           <BoardsetLink
             boardsetName={boardsetData.name}
             href={`/boardsets/${boardsetId}`}

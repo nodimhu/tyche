@@ -58,7 +58,7 @@
       />
     {/each}
   </div>
-  {#each incomeEntriesByCadence.occasional as [incomeId, income], idx (incomeId)}
+  {#each incomeEntriesByCadence.occasional as [incomeId, income] (incomeId)}
     <TransactionInputs
       {boardsetId}
       {boardId}

@@ -2,6 +2,6 @@
   export let data: Record<string, string>;
 </script>
 
-{#each Object.entries(data) as [name, value]}
+{#each Object.entries(data) as [name, value] (name)}
   <input type="hidden" {name} {value} />
 {/each}

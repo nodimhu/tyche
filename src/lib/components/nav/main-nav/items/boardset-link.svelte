@@ -7,7 +7,7 @@
   export let href: string;
   export let isActive: boolean | undefined = undefined;
 
-  const boarsetInitials = boardsetName
+  let boarsetInitials = boardsetName
     .split(" ")
     .slice(0, 2)
     .reduce((prev, word) => prev + word[0].toUpperCase(), "");
