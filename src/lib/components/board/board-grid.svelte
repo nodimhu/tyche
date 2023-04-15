@@ -23,6 +23,17 @@
 
 <style lang="scss">
   .col {
-    min-width: 30em;
+    min-width: 25em;
+  }
+
+  @media screen and (max-width: 600px) {
+    .row {
+      padding-top: 0.5em;
+    }
+
+    .col {
+      padding: 0 0.5em;
+      margin-top: 1em;
+    }
   }
 </style>
