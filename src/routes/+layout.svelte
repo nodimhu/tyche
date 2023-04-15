@@ -1,9 +1,9 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { page } from "$app/stores";
+  import PersonCircleIcon from "$lib/components/icons/bootstrap-icons/person-circle-icon.svelte";
   import BoardsetLink from "$lib/components/nav/main-nav/items/boardset-link.svelte";
   import CreateBoardsetPopper from "$lib/components/nav/main-nav/items/create-boardset-popper.svelte";
-  import UserMenu from "$lib/components/nav/main-nav/items/user-menu.svelte";
   import MainNav from "$lib/components/nav/main-nav/main-nav.svelte";
   import PageLayout from "$lib/components/page-layout/page-layout.svelte";
   import type { Boardset } from "$lib/server/models/objects/user-boardsets/types.js";
@@ -31,7 +31,7 @@
   {#if currentBoardset}
     <title>Tyche | {currentBoardset.name}</title>
   {:else}
-  <title>Tyche</title>
+    <title>Tyche</title>
   {/if}
 </svelte:head>
 
@@ -51,21 +51,27 @@
 
       <svelte:fragment slot="bottom">
         {#if $page.data.username}
-          <UserMenu
-            subItems={[
-              {
-                header: "@" + data.username ?? "",
-                items: [
-                  { url: "/user/settings", text: "User settings" },
-                  { url: "/user/change-password", text: "Change password" },
-                ],
-              },
-              {
-                items: [{ url: "/logout", text: "Logout" }],
-              },
-            ]}
-            isActive={$page.url.pathname.startsWith("/user")}
-          />
+          <MainNavMenu isActive={$page.url.pathname.startsWith("/user")} paddingless>
+            <PersonCircleIcon slot="toggle" size="2em" />
+
+            <li><h6 class="dropdown-header">@{$page.data.username}</h6></li>
+            <li><a class="dropdown-item" href="/user/settings">User settings</a></li>
+            <li>
+              <a class="dropdown-item" href="/user/change-password">Change password</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="/user/logout"
+                data-sveltekit-preload-data="off"
+                data-sveltekit-preload-code="off"
+                data-sveltekit-reload
+              >
+                Logout
+              </a>
+            </li>
+          </MainNavMenu>
         {/if}
       </svelte:fragment>
     </MainNav>

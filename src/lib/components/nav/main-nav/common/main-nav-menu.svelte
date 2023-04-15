@@ -1,42 +1,35 @@
-<script lang="ts" context="module">
-  export type MainNavMenuSubItems = {
-    header?: string;
-    items: { url: string; text: string }[];
-  }[];
-</script>
-
 <script lang="ts">
-  import MainNavItemInner from "./main-nav-item/main-nav-item-inner.svelte";
-  import MainNavItem from "./main-nav-item/main-nav-item.svelte";
+  import MainNavPopper from "./main-nav-popper.svelte";
 
-  export let subItemGroups: MainNavMenuSubItems = [];
-  export let isActive: boolean = false;
+  export let isActive = false;
+  export let paddingless = false;
+  export let transparent = false;
 </script>
 
-<MainNavItem>
-  <div class="dropend">
-    <button
-      class="main-nav-item btn"
-      style={`color: ${isActive ? "var(--bs-dark)" : undefined}`}
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-      <MainNavItemInner {isActive}>
-        <slot />
-      </MainNavItemInner>
-    </button>
-    <ul class="dropdown-menu mt-2">
-      {#each subItemGroups as group, index}
-        {#if index !== 0}
-          <li><hr class="dropdown-divider" /></li>
-        {/if}
-        {#if group.header}
-          <li><h6 class="dropdown-header">{group.header}</h6></li>
-        {/if}
-        {#each group.items as item}
-          <li><a class="dropdown-item" href={item.url}>{item.text}</a></li>
-        {/each}
-      {/each}
-    </ul>
+<MainNavPopper {isActive} {paddingless} {transparent} let:toggle>
+  <div slot="toggle" style={`color: ${isActive ? "var(--bs-dark)" : undefined}`}>
+    <slot name="toggle" />
   </div>
-</MainNavItem>
+
+  <ul
+    class="dropdown-menu"
+    on:click={toggle}
+    on:keydown={(event) => event.key === "Enter" && toggle}
+  >
+    <slot />
+  </ul>
+</MainNavPopper>
+
+<style lang="scss">
+  .dropdown-menu {
+    display: block;
+    position: relative;
+    border: none;
+    background-color: transparent;
+
+    :global(.dropdown-header) {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+  }
+</style>

@@ -7,12 +7,24 @@
   export let isActive: boolean = false;
   export let title: string | undefined = undefined;
 
+  export let paddingless = false;
+  export let transparent = false;
+
   let reference: HTMLElement;
 </script>
 
 <MainNavItem>
   <div class="main-nav-popper" bind:this={reference}>
-    <Popper {reference} {title} placement="right" offset={[0, 5]} let:open let:toggle>
+    <Popper
+      {reference}
+      {title}
+      placement="right"
+      offset={[0, 5]}
+      {paddingless}
+      {transparent}
+      let:open
+      let:toggle
+    >
       <button slot="toggle" class="main-nav-item btn" class:open on:click={toggle}>
         <MainNavItemInner {isActive}>
           <slot name="toggle" {toggle} {open} />
