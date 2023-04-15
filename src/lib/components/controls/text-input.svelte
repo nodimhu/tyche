@@ -32,6 +32,7 @@
       return;
     }
 
+    inputElement.value = newValue;
     dispatch("blur-change", { target: inputElement, value: newValue });
   };
 

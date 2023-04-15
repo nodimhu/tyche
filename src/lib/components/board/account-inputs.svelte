@@ -1,5 +1,4 @@
 <script lang="ts">
-  import CurrencyInput from "$lib/components/controls/currency-input.svelte";
   import TextInput from "$lib/components/controls/text-input.svelte";
   import {
     TYCHE_USER_JWT_COOKIE_NAME,
@@ -11,6 +10,8 @@
   import { v4 as uuidv4 } from "uuid";
 
   import InlineTrash from "../common/inline-trash.svelte";
+
+  import CurrencyValueInput from "../controls/currency-value-input.svelte";
 
   export let boardsetId: string;
   export let boardId: string;
@@ -126,7 +127,7 @@
     />
 
     {#if balance === "opening"}
-      <CurrencyInput
+      <CurrencyValueInput
         {locale}
         {currency}
         id={uniqueId + "-amount"}
@@ -138,7 +139,7 @@
         on:blur-change={onChangeAmount}
       />
     {:else}
-      <CurrencyInput
+      <CurrencyValueInput
         {locale}
         {currency}
         id={uniqueId + "-amount"}

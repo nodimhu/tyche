@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Transactions } from "$lib/server/models/objects/board/types";
 
-  import CurrencyInput from "../controls/currency-input.svelte";
+  import CurrencyValueInput from "../controls/currency-value-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
   import AddExpenseButton from "./add-expense-button.svelte";
@@ -46,7 +46,7 @@
   <svelte:fragment slot="bottom">
     <div class="input-group mt-2">
       <TextInput value="Total" disabled />
-      <CurrencyInput value={sum} {currency} {locale} readonly />
+      <CurrencyValueInput value={sum} {currency} {locale} readonly />
     </div>
   </svelte:fragment>
 

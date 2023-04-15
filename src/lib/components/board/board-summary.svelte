@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Accounts, Transactions } from "$lib/server/models/objects/board/types";
 
-  import CurrencyInput from "../controls/currency-input.svelte";
+  import CurrencyValueInput from "../controls/currency-value-input.svelte";
   import PercentageInput from "../controls/percentage-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
@@ -49,7 +49,13 @@
 <BoardCard appearance="info" title="Summary">
   <div class="input-group mt-1">
     <TextInput value="Balance" danger={balance < 0} disabled />
-    <CurrencyInput value={balance} {currency} {locale} danger={balance < 0} readonly />
+    <CurrencyValueInput
+      value={balance}
+      {currency}
+      {locale}
+      danger={balance < 0}
+      readonly
+    />
   </div>
   <div class="input-group">
     <TextInput
@@ -57,7 +63,7 @@
       danger={realExpense > transactionSum.income}
       disabled
     />
-    <CurrencyInput
+    <CurrencyValueInput
       value={realExpense}
       {currency}
       {locale}
@@ -68,7 +74,13 @@
   {#if unrecordedExpense > 0}
     <div class="input-group">
       <TextInput value="Unrecorded expenses" danger disabled />
-      <CurrencyInput value={unrecordedExpense} {currency} {locale} danger readonly />
+      <CurrencyValueInput
+        value={unrecordedExpense}
+        {currency}
+        {locale}
+        danger
+        readonly
+      />
     </div>
   {/if}
   <div class="input-group">

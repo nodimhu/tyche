@@ -14,19 +14,23 @@
   export { className as class };
   export let autocomplete: string | null = null;
 
-  export let value = 0;
+  export let value: number | null = 0;
 
   const dispatch = createEventDispatcher();
 
   const displayNumeric = (inputElement: HTMLInputElement) => {
-    inputElement.value = (value * 100).toString();
+    inputElement.value = value !== null ? (value * 100).toString() : "";
   };
 
   const displayFormatted = (inputElement: HTMLInputElement) => {
-    inputElement.value = value * 100 + "%";
+    inputElement.value = value !== null ? value * 100 + "%" : "";
   };
 
   const parseInput = (inputElement: HTMLInputElement): number | null => {
+    if (!inputElement.value) {
+      return null;
+    }
+
     const parsedInput = Number(inputElement.value);
 
     if (isNaN(parsedInput)) {
@@ -39,19 +43,20 @@
   const handleChange = (inputElement: HTMLInputElement) => {
     const newValue = parseInput(inputElement);
 
-    if (newValue === null || newValue === value) {
+    if (newValue === value) {
       displayFormatted(inputElement);
       dispatch("blur", { target: inputElement });
       return;
     }
 
     if (required && newValue === null) {
-      inputElement.value = value.toString();
+      inputElement.value = value !== null ? value.toString() : "";
       displayFormatted(inputElement);
       dispatch("blur", { target: inputElement });
       return;
     }
 
+    inputElement.value = newValue !== null ? (newValue * 100).toString() : "";
     displayFormatted(inputElement);
     dispatch("blur-change", { target: inputElement, value: newValue });
   };
@@ -84,7 +89,7 @@
   {id}
   {name}
   {style}
-  value={value * 100 + "%"}
+  value={value !== null ? value * 100 + "%" : ""}
   {required}
   {readonly}
   {disabled}

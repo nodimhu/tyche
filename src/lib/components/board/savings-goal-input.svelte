@@ -39,4 +39,5 @@
 <PercentageInput
   value={savingsGoalPercentage}
   on:blur-change={onChangeSavingsGoalPercentage}
+  required
 />

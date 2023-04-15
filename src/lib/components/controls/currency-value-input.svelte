@@ -14,7 +14,7 @@
   export { className as class };
   export let autocomplete: string | null = null;
 
-  export let value = 0;
+  export let value: number | null = 0;
 
   export let currency = "USD";
   export let locale = "en-US";
@@ -22,14 +22,19 @@
   const dispatch = createEventDispatcher();
 
   const displayNumeric = (inputElement: HTMLInputElement) => {
-    inputElement.value = value.toString();
+    inputElement.value = value !== null ? value.toString() : "";
   };
 
   const displayFormatted = (inputElement: HTMLInputElement) => {
-    inputElement.value = Intl.NumberFormat(locale, {
-      style: "currency",
-      currency,
-    }).format(value);
+    if (value !== null) {
+      inputElement.value = Intl.NumberFormat(locale, {
+        style: "currency",
+        currency,
+      }).format(value);
+      return;
+    }
+
+    inputElement.value = "";
   };
 
   const parseInput = (inputElement: HTMLInputElement): number | null => {
@@ -45,19 +50,20 @@
   const handleChange = (inputElement: HTMLInputElement) => {
     const newValue = parseInput(inputElement);
 
-    if (newValue === null || newValue === value) {
+    if (newValue === value) {
       displayFormatted(inputElement);
       dispatch("blur", { target: inputElement });
       return;
     }
 
     if (required && newValue === null) {
-      inputElement.value = value.toString();
+      inputElement.value = value !== null ? value.toString() : "";
       displayFormatted(inputElement);
       dispatch("blur", { target: inputElement });
       return;
     }
 
+    inputElement.value = newValue ? newValue.toString() : "";
     displayFormatted(inputElement);
     dispatch("blur-change", { target: inputElement, value: newValue });
   };
@@ -90,10 +96,12 @@
   {id}
   {name}
   {style}
-  value={Intl.NumberFormat(locale, {
-    style: "currency",
-    currency,
-  }).format(value)}
+  value={value !== null
+    ? Intl.NumberFormat(locale, {
+        style: "currency",
+        currency,
+      }).format(value)
+    : ""}
   {required}
   {readonly}
   {disabled}

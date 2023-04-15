@@ -1,5 +1,4 @@
 <script lang="ts">
-  import CurrencyInput from "$lib/components/controls/currency-input.svelte";
   import TextInput from "$lib/components/controls/text-input.svelte";
   import {
     TYCHE_USER_JWT_COOKIE_NAME,
@@ -13,6 +12,7 @@
   import InlineTrash from "../common/inline-trash.svelte";
   import Tooltip from "../common/tooltip.svelte";
 
+  import CurrencyValueInput from "../controls/currency-value-input.svelte";
   import RepeatIcon from "../icons/bootstrap-icons/repeat-icon.svelte";
 
   export let boardsetId: string;
@@ -141,7 +141,7 @@
       autocomplete="off"
       on:blur-change={onChangeDescription}
     />
-    <CurrencyInput
+    <CurrencyValueInput
       {locale}
       {currency}
       id={uniqueId + "-amount"}
