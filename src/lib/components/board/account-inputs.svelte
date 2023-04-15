@@ -10,9 +10,7 @@
   import { boardStore } from "$lib/stores/board-store";
   import { v4 as uuidv4 } from "uuid";
 
-  import { fade } from "svelte/transition";
-
-  import TrashIcon from "../bootstrap-icons/trash-icon.svelte";
+  import InlineTrash from "../common/inline-trash.svelte";
 
   export let boardsetId: string;
   export let boardId: string;
@@ -155,31 +153,12 @@
   </div>
 
   {#if isTrashVisible}
-    <button
-      class="btn btn-outline-danger delete-button"
-      transition:fade={{ duration: 250 }}
-      on:click={onDelete}
-    >
-      <TrashIcon />
-    </button>
+    <InlineTrash on:delete={onDelete} />
   {/if}
 </div>
 
 <style lang="scss">
   .account-inputs {
     position: relative;
-
-    .delete-button {
-      border: 1px solid transparent;
-      z-index: 1;
-      opacity: 1;
-      position: absolute;
-      bottom: 0;
-      right: calc(0.5 * var(--bs-gutter-x));
-
-      &:hover {
-        border: 1px solid var(--bs-danger);
-      }
-    }
   }
 </style>

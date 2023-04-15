@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import PlusCircleIcon from "$lib/components/bootstrap-icons/plus-circle-icon.svelte";
+  import PlusCircleIcon from "$lib/components/icons/bootstrap-icons/plus-circle-icon.svelte";
 
   import { createEventDispatcher } from "svelte";
 

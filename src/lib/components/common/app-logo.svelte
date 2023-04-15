@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Bank2Icon from "../bootstrap-icons/bank2-icon.svelte";
+  import TycheLogo from "../icons/tyche-logo.svelte";
 </script>
 
-<Bank2Icon size="2em" />
+<TycheLogo size="3em" />

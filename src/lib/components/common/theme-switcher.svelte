@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
 
-  import MoonFillIcon from "../bootstrap-icons/moon-fill-icon.svelte";
-  import SunFillIcon from "../bootstrap-icons/sun-fill-icon.svelte";
+  import MoonFillIcon from "../icons/bootstrap-icons/moon-fill-icon.svelte";
+  import SunFillIcon from "../icons/bootstrap-icons/sun-fill-icon.svelte";
 
   let theme: "light" | "dark" = "dark";
 

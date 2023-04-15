@@ -1,5 +1,5 @@
 <script lang="ts">
-  import CircleIcon from "$lib/components/bootstrap-icons/circle-icon.svelte";
+  import CircleIcon from "$lib/components/icons/bootstrap-icons/circle-icon.svelte";
 
   import MainNavLink from "../common/main-nav-link.svelte";
 
