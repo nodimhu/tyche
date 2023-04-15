@@ -7,10 +7,11 @@
 
   export let action: string;
   export let actionText: string;
+  export let sourceBoardId = "";
   export let year = "";
   export let month = "";
-  export let boardsetId = "";
-  export let boardId = "";
+  export let boardsetId: string;
+  export let boardId: string;
 
   const dispatch = createEventDispatcher();
 
@@ -20,7 +21,7 @@
 </script>
 
 <form method="POST" {action} on:submit={onSubmit} use:enhance>
-  <HiddenData data={{ boardsetId, boardId }} />
+  <HiddenData data={{ boardsetId, boardId, sourceBoardId }} />
 
   <input
     class="form-control"

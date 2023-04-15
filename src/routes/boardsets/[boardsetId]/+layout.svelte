@@ -36,16 +36,16 @@
         actionText="Add"
       />
 
-      <!-- {#if $page.data.boardIdParam}
+      {#if $page.data.boardIdParam}
         <SideNavNewBoardPopper
           title={"Copy this board"}
+          sourceBoardId={$page.data.boardIdParam}
           year={$page.data.yearParam}
-          action={`/boardsets/${data.boardsetIdParam}?/copy`}
+          boardsetId={data.boardsetIdParam}
+          action={`/boardsets/${data.boardsetIdParam}?/copy-board`}
           actionText="Copy"
-          referenceBoardsetId={data.boardsetIdParam}
-          referenceBoardId={$page.data.boardIdParam}
         />
-      {/if} -->
+      {/if}
 
       <div slot="bottom">
         {#if $page.data.boardIdParam}
