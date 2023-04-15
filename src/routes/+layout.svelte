@@ -57,7 +57,11 @@
             <li><h6 class="dropdown-header">@{$page.data.username}</h6></li>
             <li><a class="dropdown-item" href="/user/settings">User settings</a></li>
             <li>
-              <a class="dropdown-item" href="/user/change-password">Change password</a>
+              <!--
+                <a class="dropdown-item" href="/user/change-password">
+                  Change password
+                </a>
+              -->
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>

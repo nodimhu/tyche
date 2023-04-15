@@ -10,7 +10,8 @@
 <PageLayout>
   <SideNav title={"@" + data.username ?? ""}>
     <SideNavItem href="/user/settings">User settings</SideNavItem>
-    <SideNavItem href="/user/change-password">Change password</SideNavItem>
+    <!-- <SideNavItem href="/user/change-password">Change password</SideNavItem> -->
   </SideNav>
+
   <slot />
 </PageLayout>
