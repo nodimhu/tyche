@@ -6,22 +6,40 @@
   import UserMenu from "$lib/components/nav/main-nav/items/user-menu.svelte";
   import MainNav from "$lib/components/nav/main-nav/main-nav.svelte";
   import PageLayout from "$lib/components/page-layout/page-layout.svelte";
+  import type { Boardset } from "$lib/server/models/objects/user-boardsets/types.js";
   import "$lib/styles/base.scss";
+
+  import MainNavMenu from "$lib/components/nav/main-nav/common/main-nav-menu.svelte";
 
   export let data;
 
-  $: boardsets = Object.entries(data.boardsets ?? {});
+  let currentBoardset: Boardset | undefined = undefined;
+
+  $: boardsetEntries = Object.entries(data.boardsets ?? {});
+
+  $: {
+    currentBoardset =
+      $page.data.boardsetIdParam && (data.boardsets ?? {})[$page.data.boardsetIdParam];
+
+    if (currentBoardset && browser) {
+      document.title = `Tyche | ${currentBoardset?.name}`;
+    }
+  }
 </script>
 
 <svelte:head>
+  {#if currentBoardset}
+    <title>Tyche | {currentBoardset.name}</title>
+  {:else}
   <title>Tyche</title>
+  {/if}
 </svelte:head>
 
 <main>
   <PageLayout>
     <MainNav>
       {#if $page.data.username}
-        {#each boardsets as [boardsetId, boardsetData]}
+        {#each boardsetEntries as [boardsetId, boardsetData]}
           <BoardsetLink
             boardsetName={boardsetData.name}
             href={`/boardsets/${boardsetId}`}
