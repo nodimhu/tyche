@@ -4,9 +4,9 @@
 
 <nav class="side-nav" data-bs-theme="dark">
   {#if title}
-    <div class="title fs-5">
+    <h5 class="title fw-semibold">
       {title}
-    </div>
+    </h5>
   {/if}
   <slot />
   <div class="whitespace" />
@@ -19,14 +19,13 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    color: var(--bs-light);
     background-color: var(--bs-gray-700);
     .title {
       height: 64px;
       display: grid;
-      justify-items: center;
       align-items: center;
-      background-color: var(--bs-gray-800);
+      padding: 0.375rem 0.75rem;
+      margin: 0;
     }
     .whitespace {
       flex-grow: 1;

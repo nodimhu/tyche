@@ -5,12 +5,13 @@
   import type { Options as OffsetOptions } from "@popperjs/core/lib/modifiers/offset";
 
   import { onDestroy, onMount } from "svelte";
+  import { fade } from "svelte/transition";
 
   export let title: string = "";
   export let reference: HTMLElement;
   export let placement: Placement = "bottom";
   export let offset: OffsetOptions["offset"] = [0, 0];
-  export let borderless = false;
+  export let rectangle = false;
   export let paddingless = false;
   export let transparent = false;
 
@@ -48,6 +49,12 @@
               offset: offset,
             },
           },
+          {
+            name: "preventOverflow",
+            options: {
+              padding: 5,
+            },
+          },
         ],
       });
     }
@@ -65,34 +72,37 @@
 
 <div class="popper">
   <slot name="toggle" />
-  <div
-    bind:this={popperContainer}
-    class:borderless
-    class:paddingless
-    class:transparent
-    class:show={open}
-    class="popper-container"
-  >
-    {#if title}
-      <div class="popper-title">
-        {title}
+  <div bind:this={popperContainer} class="popper-container">
+    {#if open}
+      <div
+        class:rectangle
+        class:paddingless
+        class:transparent
+        class="popper-container-contents"
+        transition:fade={{ duration: 100 }}
+      >
+        {#if title}
+          <h6 class="popper-title">
+            {title}
+          </h6>
+        {/if}
+        <div class="popper-contents">
+          <slot {open} {toggle} />
+        </div>
       </div>
     {/if}
-    <div class="popper-contents">
-      <slot {open} {toggle} />
-    </div>
   </div>
 </div>
 
 <style lang="scss">
+  @import "$lib/styles/variables";
+
   .popper-container {
     z-index: 999;
+  }
 
-    &:not(.show) {
-      display: none;
-    }
+  .popper-container-contents {
     &:not(.borderless) {
-      border: 1px solid var(--bs-border-color-translucent);
       border-radius: var(--bs-border-radius);
     }
     &:not(.paddingless) {
@@ -100,17 +110,17 @@
         padding: 0.7em 0.75em;
       }
       .popper-title {
-        padding: 0.5em 0.75em;
+        padding: 0.5em 0.75em 0;
+        margin: 0;
       }
     }
     &:not(.transparent) {
-      background-color: var(--bs-body-bg);
+      background-color: var(--bs-gray-800);
+      box-shadow: 0 3px 5px 3px rgba($dark, 0.75);
     }
 
     .popper-title {
       font-weight: 600;
-      border-bottom: 1px solid var(--bs-border-color-translucent);
-      background-color: var(--bs-secondary-bg);
     }
   }
 </style>

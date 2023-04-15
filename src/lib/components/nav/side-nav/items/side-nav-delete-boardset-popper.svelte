@@ -1,5 +1,5 @@
 <script lang="ts">
-  import TrashIcon from "$lib/components/bootstrap-icons/trash-icon.svelte";
+  import TrashIcon from "$lib/components/icons/bootstrap-icons/trash-icon.svelte";
 
   import SideNavConfirmPopper from "../common/side-nav-confirm-popper.svelte";
 

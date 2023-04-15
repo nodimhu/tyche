@@ -50,6 +50,8 @@
 
   .side-nav-link {
     width: 100%;
+    height: 2.75em;
+    border-block: none;
 
     display: flex;
     align-items: center;
@@ -73,6 +75,7 @@
 
     &.active {
       color: $primary;
+      border-left: 3px solid $primary;
       font-weight: 600;
     }
   }

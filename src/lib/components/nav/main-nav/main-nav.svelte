@@ -25,9 +25,9 @@
     display: flex;
     flex-direction: column;
     column-gap: 0.5em;
-    color: var(--bs-gray-200);
     background-color: var(--bs-gray-800);
     padding-bottom: 0.5em;
+    padding-right: 0;
 
     :global(.main-nav-item-wrapper) {
       width: 64px;
@@ -55,7 +55,6 @@
     a {
       color: var(--bs-primary);
     }
-    background-color: var(--bs-dark);
     height: 64px;
     margin-bottom: 0.5em;
   }
@@ -78,6 +77,8 @@
         width: 48px;
         height: 64px;
       }
+      padding-bottom: 0;
+      padding-right: 0.5em;
     }
 
     .logo {

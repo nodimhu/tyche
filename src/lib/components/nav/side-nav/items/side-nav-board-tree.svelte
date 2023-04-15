@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ChevronDownIcon from "$lib/components/bootstrap-icons/chevron-down-icon.svelte";
-  import ChevronRightIcon from "$lib/components/bootstrap-icons/chevron-right-icon.svelte";
+  import ChevronDownIcon from "$lib/components/icons/bootstrap-icons/chevron-down-icon.svelte";
+  import ChevronRightIcon from "$lib/components/icons/bootstrap-icons/chevron-right-icon.svelte";
   import type {
     BoardData,
     BoardsetBoardsData,

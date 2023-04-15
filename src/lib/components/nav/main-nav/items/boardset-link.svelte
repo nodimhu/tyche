@@ -16,7 +16,7 @@
 <MainNavLink {href} {isActive}>
   <CircleIcon size="2em" />
   <div class="boardset-initials">
-    <small>
+    <small class="fw-semibold">
       {boarsetInitials}
     </small>
   </div>
