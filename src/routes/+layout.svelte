@@ -63,7 +63,7 @@
             <li>
               <a
                 class="dropdown-item"
-                href="/user/logout"
+                href="/logout"
                 data-sveltekit-preload-data="off"
                 data-sveltekit-preload-code="off"
                 data-sveltekit-reload

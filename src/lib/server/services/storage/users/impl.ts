@@ -27,6 +27,12 @@ export class UsersDoOrFetchStorage
     super("root", env.get("USERS"), env.get("USERS_DEV_URL"));
   }
 
+  private async checkUserExists(username: string): Promise<void> {
+    if (!(await this.getUser({ username }))) {
+      throw new StorageOperationError("User does not exist.");
+    }
+  }
+
   async createJwtCookie(username: string, cookies: Cookies): Promise<void> {
     const appSigningSecret = this.env.require("APP_SIGNING_SECRET");
 
@@ -94,6 +100,8 @@ export class UsersDoOrFetchStorage
   }
 
   async updateUser(params: UpdateUserParams): Promise<GetUserResult> {
+    await this.checkUserExists(params.username);
+
     const user = await this.operationRequest<UpdateUserParams, GetUserResult>(
       "updateUser",
       params,
@@ -112,6 +120,7 @@ export class UsersDoOrFetchStorage
 
   async verifyUserPassword(params: VerifyUserPasswordParams): Promise<boolean> {
     try {
+      await this.checkUserExists(params.username);
       await this.operationRequest("verifyUserPassword", params);
     } catch (error) {
       if (error instanceof StorageOperationError) {
