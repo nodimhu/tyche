@@ -6,6 +6,11 @@
   import type { CreateTransactionResult } from "$lib/server/models/objects/board/results";
   import { boardStore } from "$lib/stores/board-store";
 
+  import Tooltip from "../common/tooltip.svelte";
+
+  import PlusIcon from "../icons/bootstrap-icons/plus-icon.svelte";
+  import RepeatIcon from "../icons/bootstrap-icons/repeat-icon.svelte";
+
   export let boardsetId: string;
   export let boardId: string;
   export let cadence: "recurring" | "occasional";
@@ -38,6 +43,18 @@
   };
 </script>
 
-<button class="btn btn-outline-primary" on:click={addExpense}>
-  Add {cadence} expense
-</button>
+<Tooltip contents={`Add ${cadence} expense`}>
+  <button class="btn btn-round btn-current-color text-danger" on:click={addExpense}>
+    {#if cadence === "recurring"}
+      <RepeatIcon size="2em" />
+    {/if}
+    <PlusIcon size={cadence === "occasional" ? "2.5em" : "1.5em"} />
+  </button>
+</Tooltip>
+
+<style lang="scss">
+  button {
+    width: 2.75em;
+    height: 2.75em;
+  }
+</style>

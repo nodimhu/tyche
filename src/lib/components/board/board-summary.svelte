@@ -5,6 +5,8 @@
   import PercentageInput from "../controls/percentage-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
+  import BoardCard from "./board-card.svelte";
+
   export let transactions: Transactions;
   export let accounts: Accounts;
   export let savingsGoalPercentage = 0;
@@ -40,74 +42,47 @@
 
   $: savings =
     transactionSum.income > 0
-      ? Math.round((balance / transactionSum.income) * 10000) / 10000
+      ? Number((balance / transactionSum.income).toFixed(2))
       : 0;
 </script>
 
-<div class="board-summary card">
-  <div class="card-body">
-    <h5 class="card-title">Board Summary</h5>
-
-    <div class="input-group mt-1">
-      <TextInput value="Balance" danger={balance < 0} disabled />
-      <CurrencyInput
-        value={balance}
-        {currency}
-        {locale}
-        danger={balance < 0}
-        readonly
-      />
-    </div>
-    <div class="input-group">
-      <TextInput
-        value="Real expenses"
-        danger={realExpense > transactionSum.income}
-        disabled
-      />
-      <CurrencyInput
-        value={realExpense}
-        {currency}
-        {locale}
-        danger={realExpense > transactionSum.income}
-        readonly
-      />
-    </div>
-    {#if unrecordedExpense > 0}
-      <div class="input-group">
-        <TextInput value="Unrecorded expenses" danger disabled />
-        <CurrencyInput value={unrecordedExpense} {currency} {locale} danger readonly />
-      </div>
-    {/if}
-    <div class="input-group">
-      <TextInput
-        value="Savings"
-        success
-        danger={savings === 0 || savings < savingsGoalPercentage}
-        disabled
-      />
-      <PercentageInput
-        value={savings}
-        success
-        danger={savings === 0 || savings < savingsGoalPercentage}
-        readonly
-      />
-    </div>
+<BoardCard appearance="info" title="Summary">
+  <div class="input-group mt-1">
+    <TextInput value="Balance" danger={balance < 0} disabled />
+    <CurrencyInput value={balance} {currency} {locale} danger={balance < 0} readonly />
   </div>
-</div>
-
-<style lang="scss">
-  .board-summary {
-    height: 100%;
-    background-color: var(--bs-tertiary-bg);
-    box-shadow: 0 5px 5px 3px var(--bs-secondary-bg-subtle);
-
-    .card-body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .input-group {
-      margin-top: -1px;
-    }
-  }
-</style>
+  <div class="input-group">
+    <TextInput
+      value="Real expenses"
+      danger={realExpense > transactionSum.income}
+      disabled
+    />
+    <CurrencyInput
+      value={realExpense}
+      {currency}
+      {locale}
+      danger={realExpense > transactionSum.income}
+      readonly
+    />
+  </div>
+  {#if unrecordedExpense > 0}
+    <div class="input-group">
+      <TextInput value="Unrecorded expenses" danger disabled />
+      <CurrencyInput value={unrecordedExpense} {currency} {locale} danger readonly />
+    </div>
+  {/if}
+  <div class="input-group">
+    <TextInput
+      value="Savings"
+      success
+      danger={savings === 0 || savings < savingsGoalPercentage}
+      disabled
+    />
+    <PercentageInput
+      value={savings}
+      success
+      danger={savings === 0 || savings < savingsGoalPercentage}
+      readonly
+    />
+  </div>
+</BoardCard>

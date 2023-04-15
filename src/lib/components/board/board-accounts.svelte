@@ -6,6 +6,8 @@
 
   import AccountInputs from "./account-inputs.svelte";
   import AddAccountButton from "./add-account-button.svelte";
+  import BoardCardEmpty from "./board-card-empty.svelte";
+  import BoardCard from "./board-card.svelte";
 
   export let boardsetId: string;
   export let boardId: string;
@@ -20,66 +22,33 @@
   $: sum = accountEntries.reduce((sum, [_, account]) => sum + account[type], 0);
 </script>
 
-<div class="board-accounts card">
-  <div class="card-body">
-    <h5 class="card-title">
-      {type === "opening" ? "Opening Balances" : "Closing Balances"}
-    </h5>
-
-    <div class="card-text">
-      {#each accountEntries as [accountId, account], idx (accountId)}
-        <div class="row">
-          <AccountInputs
-            {boardsetId}
-            {boardId}
-            {accountId}
-            {account}
-            {locale}
-            {currency}
-            balance={type}
-            labels={idx === 0}
-          />
-        </div>
-      {:else}
-        There are no accounts on this board.
-      {/each}
+<BoardCard
+  appearance="primary"
+  title={type === "opening" ? "Opening Balances" : "Closing Balances"}
+>
+  {#each accountEntries as [accountId, account], idx (accountId)}
+    <div class="account-inputs">
+      <AccountInputs
+        {boardsetId}
+        {boardId}
+        {accountId}
+        {account}
+        {locale}
+        {currency}
+        balance={type}
+        labels={idx === 0}
+      />
     </div>
+  {:else}
+    <BoardCardEmpty message="There are no accounts on this board" />
+  {/each}
 
-    <div class="card-whitespace" />
-
-    <div class="input-group mt-2">
+  <svelte:fragment slot="bottom">
+    <div class="input-group">
       <TextInput value="Total" disabled />
       <CurrencyInput value={sum} {currency} {locale} readonly />
     </div>
+  </svelte:fragment>
 
-    <div class="card-actions mt-2">
-      <AddAccountButton {boardsetId} {boardId} />
-    </div>
-  </div>
-</div>
-
-<style lang="scss">
-  .board-accounts {
-    height: 100%;
-    background-color: var(--bs-tertiary-bg);
-    box-shadow: 0 5px 5px 3px var(--bs-secondary-bg-subtle);
-
-    .card-body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-whitespace {
-      flex-grow: 1;
-    }
-
-    .row {
-      margin-top: -1px;
-    }
-
-    .card-actions {
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-</style>
+  <AddAccountButton slot="actions" {boardsetId} {boardId} />
+</BoardCard>

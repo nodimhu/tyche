@@ -1,5 +1,5 @@
-<div class="container-fluid p-0">
-  <div class="row mb-5 gy-5">
+<div class="container-xxl p-0 pt-3">
+  <div class="row g-5">
     <div class="col">
       <slot name="accounts-opening" />
     </div>

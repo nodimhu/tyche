@@ -10,9 +10,10 @@
   import { boardStore } from "$lib/stores/board-store";
   import { v4 as uuidv4 } from "uuid";
 
-  import { fade } from "svelte/transition";
+  import InlineTrash from "../common/inline-trash.svelte";
+  import Tooltip from "../common/tooltip.svelte";
 
-  import TrashIcon from "../bootstrap-icons/trash-icon.svelte";
+  import RepeatIcon from "../icons/bootstrap-icons/repeat-icon.svelte";
 
   export let boardsetId: string;
   export let boardId: string;
@@ -108,6 +109,7 @@
 
 <div
   class="transaction-inputs"
+  class:recurring={transaction.cadence === "recurring"}
   on:mouseenter={() => (isTrashVisible = true)}
   on:mouseleave={() => (isTrashVisible = false)}
 >
@@ -120,21 +122,30 @@
     </div>
   {/if}
 
+  {#if transaction.cadence === "recurring"}
+    <div class="recurring-icon">
+      <Tooltip contents="Recurring">
+        <RepeatIcon size="1em" />
+      </Tooltip>
+    </div>
+  {/if}
+
   <div class="input-group">
     <TextInput
       id={uniqueId + "-description"}
       name="accountName"
+      class="description"
       value={transaction.description}
       required={true}
       placeholder="Account name"
       autocomplete="off"
       on:blur-change={onChangeDescription}
     />
-
     <CurrencyInput
       {locale}
       {currency}
       id={uniqueId + "-amount"}
+      style="min-width: 10em;"
       name="accountOpening"
       value={transaction.amount}
       required={true}
@@ -145,13 +156,7 @@
   </div>
 
   {#if isTrashVisible}
-    <button
-      class="btn btn-outline-danger delete-button"
-      transition:fade={{ duration: 250 }}
-      on:click={onDelete}
-    >
-      <TrashIcon />
-    </button>
+    <InlineTrash on:delete={onDelete} />
   {/if}
 </div>
 
@@ -159,17 +164,17 @@
   .transaction-inputs {
     position: relative;
 
-    .delete-button {
-      border: 1px solid transparent;
-      z-index: 1;
-      opacity: 1;
-      position: absolute;
-      bottom: 0;
-      right: calc(0.5 * var(--bs-gutter-x));
+    &.recurring :global(.description) {
+      text-indent: 1.5em;
+    }
 
-      &:hover {
-        border: 1px solid var(--bs-danger);
-      }
+    .recurring-icon {
+      color: var(--bs-primary);
+      position: absolute;
+      bottom: 0.5em;
+      left: 0.75em;
+      transform: translate(0, 0);
+      z-index: 6;
     }
   }
 </style>

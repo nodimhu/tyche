@@ -1,10 +1,15 @@
 <script lang="ts">
-  import type { Transactions } from "$lib/server/models/objects/board/types";
+  import type {
+    Transaction,
+    Transactions,
+  } from "$lib/server/models/objects/board/types";
 
   import CurrencyInput from "../controls/currency-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
   import AddIncomeButton from "./add-income-button.svelte";
+  import BoardCardEmpty from "./board-card-empty.svelte";
+  import BoardCard from "./board-card.svelte";
   import SavingsGoalInput from "./savings-goal-input.svelte";
   import TransactionInputs from "./transaction-inputs.svelte";
 
@@ -20,31 +25,52 @@
   $: incomeEntries = Object.entries(transactions)?.filter(
     ([_, transaction]) => transaction.type === "income",
   );
+
   $: sum = incomeEntries.reduce((sum, [_, income]) => sum + income.amount, 0);
+
+  $: incomeEntriesByCadence = incomeEntries.reduce(
+    (collection, [incomeId, income]) => {
+      collection[income.cadence].push([incomeId, income]);
+      return collection;
+    },
+    {
+      recurring: [] as [string, Transaction][],
+      occasional: [] as [string, Transaction][],
+    },
+  );
 </script>
 
-<div class="board-income card">
-  <div class="card-body">
-    <h5 class="card-title">Income</h5>
+<BoardCard appearance="success" title="Income">
+  {#if incomeEntries.length === 0}
+    <BoardCardEmpty message="There are no income transactions on this board." />
+  {/if}
 
-    {#each incomeEntries as [transactionId, transaction], idx (transactionId)}
-      <div class="row">
-        <TransactionInputs
-          {boardsetId}
-          {boardId}
-          {transactionId}
-          {transaction}
-          {locale}
-          {currency}
-          labels={idx === 0}
-        />
-      </div>
-    {:else}
-      There are no income transactions on this board.
+  <div class="mb-1">
+    {#each incomeEntriesByCadence.recurring as [incomeId, income], idx (incomeId)}
+      <TransactionInputs
+        {boardsetId}
+        {boardId}
+        transactionId={incomeId}
+        transaction={income}
+        {locale}
+        {currency}
+        labels={idx === 0}
+      />
     {/each}
+  </div>
+  {#each incomeEntriesByCadence.occasional as [incomeId, income], idx (incomeId)}
+    <TransactionInputs
+      {boardsetId}
+      {boardId}
+      transactionId={incomeId}
+      transaction={income}
+      {locale}
+      {currency}
+      labels={false}
+    />
+  {/each}
 
-    <div class="card-whitespace" />
-
+  <svelte:fragment slot="bottom">
     <div class="input-group mt-2">
       <TextInput value="Total" disabled />
       <CurrencyInput value={sum} {currency} {locale} readonly />
@@ -57,36 +83,10 @@
       <TextInput value="Target savings" disabled />
       <CurrencyInput value={sum * savingsGoalPercentage} {currency} {locale} readonly />
     </div>
+  </svelte:fragment>
 
-    <div class="card-actions mt-2">
-      <AddIncomeButton {boardsetId} {boardId} />
-    </div>
-  </div>
-</div>
-
-<style lang="scss">
-  .board-income {
-    height: 100%;
-    background-color: var(--bs-tertiary-bg);
-    box-shadow: 0 5px 5px 3px var(--bs-secondary-bg-subtle);
-
-    .card-body {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-whitespace {
-      flex-grow: 1;
-    }
-
-    .row,
-    .input-group {
-      margin-top: -1px;
-    }
-
-    .card-actions {
-      display: flex;
-      justify-content: flex-end;
-    }
-  }
-</style>
+  <svelte:fragment slot="actions">
+    <AddIncomeButton {boardsetId} {boardId} cadence="recurring" />
+    <AddIncomeButton {boardsetId} {boardId} cadence="occasional" />
+  </svelte:fragment>
+</BoardCard>
