@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
+  import NewBoardsetForm from "$lib/components/forms/new-boardset-form.svelte";
   import PlusCircleIcon from "$lib/components/icons/bootstrap-icons/plus-circle-icon.svelte";
 
   import { createEventDispatcher } from "svelte";
@@ -22,17 +22,7 @@
   </div>
 
   <div class="create-boardset-popper">
-    <form method="POST" {action} on:submit={() => onSubmit(toggle)} use:enhance>
-      <input
-        class="form-control"
-        type="text"
-        name="boardsetName"
-        required={true}
-        placeholder="Boardset name"
-      />
-
-      <button type="submit" class="btn btn-primary"> Create </button>
-    </form>
+    <NewBoardsetForm {action} on:submit={toggle} />
 
     <button class="btn btn-outline-secondary" on:click={toggle}>Cancel</button>
   </div>
@@ -54,12 +44,5 @@
   .create-boardset-popper {
     display: flex;
     column-gap: 0.5em;
-    form {
-      display: flex;
-      column-gap: 0.5em;
-      button {
-        min-width: 5em;
-      }
-    }
   }
 </style>
