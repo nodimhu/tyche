@@ -38,7 +38,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   return await resolve(event);
 };
 
-export const handleError: HandleServerError = ({ error, event }) => {
+export const handleError: HandleServerError = async ({ error, event }) => {
   // Unexpected errors land here before +error.svelte.
   // These are runtime errors or throw new Error(...)-s, ie. they ARE NOT throw
   // error(...)-s (or throw redirect(...)-s), which are expected HTTP error responses!
@@ -46,7 +46,7 @@ export const handleError: HandleServerError = ({ error, event }) => {
 
   if (!dev && event.platform) {
     const { errorLogger } = getServerServices(event.platform);
-    errorLogger.log(error, event);
+    await errorLogger.log(error, event);
     return;
   }
 
