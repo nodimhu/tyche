@@ -14,9 +14,17 @@ export const load: LayoutServerLoad = async ({ cookies, platform }) => {
     };
   }
 
+  let boardsets = await UserBoardsets(username).getBoardsets();
+
+  boardsets = Object.fromEntries(
+    Object.entries(boardsets).sort(([_A, bA], [_B, bB]) => {
+      return bA.name.localeCompare(bB.name);
+    }),
+  );
+
   return {
     username,
-    boardsets: await UserBoardsets(username).getBoardsets(),
+    boardsets,
     settings: await UserSettings(username).getSettigns(),
   };
 };
