@@ -7,7 +7,7 @@
   import MainNav from "$lib/components/nav/main-nav/main-nav.svelte";
   import PageLayout from "$lib/components/page-layout/page-layout.svelte";
   import type { Boardset } from "$lib/server/models/objects/user-boardsets/types.js";
-  import "$lib/styles/base.scss";
+  import "$lib/styles/styles.scss";
 
   import MainNavMenu from "$lib/components/nav/main-nav/common/main-nav-menu.svelte";
 

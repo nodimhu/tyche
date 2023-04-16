@@ -69,7 +69,7 @@
   {placeholder}
   {autocomplete}
   type="text"
-  class={`form-control ${className}`}
+  class={`tyui-control ${className} form-control`}
   class:readonly
   class:danger
   class:success
@@ -77,31 +77,3 @@
   on:blur={onBlur}
   on:keydown={onKeyDown}
 />
-
-<style lang="scss">
-  @import "$lib/styles/variables";
-
-  .form-control {
-    &.readonly {
-      background-color: lighten($gray-800, 2.5%);
-    }
-
-    &.success {
-      z-index: 1;
-      box-shadow: inset 0 0 0 1px $success;
-      background-color: rgba($success, 0.2);
-      &:focus {
-        box-shadow: $focus-ring-box-shadow, inset 0 0 0 1px $success;
-      }
-    }
-
-    &.danger {
-      z-index: 1;
-      box-shadow: inset 0 0 0 1px $danger;
-      background-color: rgba($danger, 0.2);
-      &:focus {
-        box-shadow: $focus-ring-box-shadow, inset 0 0 0 1px $danger;
-      }
-    }
-  }
-</style>

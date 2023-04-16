@@ -1,0 +1,57 @@
+@import "./variables.scss";
+@import "bootstrap/scss/bootstrap";
+
+body,
+html {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  border: none;
+}
+
+.btn-current-color {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px currentColor;
+  }
+}
+
+.btn-round {
+  border-radius: 50%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 0;
+  margin: 0;
+  & > * {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.tyui-control {
+  &.readonly {
+    background-color: lighten($gray-800, 2.5%);
+  }
+
+  &.success {
+    z-index: 1;
+    box-shadow: inset 0 0 0 1px $success;
+    background-color: rgba($success, 0.2);
+    &:focus {
+      box-shadow: $focus-ring-box-shadow, inset 0 0 0 1px $success;
+    }
+  }
+
+  &.danger {
+    z-index: 1;
+    box-shadow: inset 0 0 0 1px $danger;
+    background-color: rgba($danger, 0.2);
+    &:focus {
+      box-shadow: $focus-ring-box-shadow, inset 0 0 0 1px $danger;
+    }
+  }
+}
