@@ -14,10 +14,6 @@
   $: hasBoards = Object.keys(data.boards ?? {}).length > 0;
   $: currentMonth =
     data.boards?.[$page.data.yearParam]?.[$page.data.boardIdParam]?.month;
-  $: existingMonths = Object.entries(data.boards?.[$page.data.yearParam] ?? {}).reduce(
-    (months, [_, boardData]) => [...months, boardData.month],
-    [] as number[],
-  );
 </script>
 
 <PageLayout>
@@ -41,7 +37,7 @@
         boardsetId={data.boardsetIdParam}
         year={$page.data.yearParam}
         month={(currentMonth ?? -1) + 1}
-        {existingMonths}
+        boardsetBoards={data.boards ?? {}}
       />
 
       {#if $page.data.boardIdParam}
@@ -53,7 +49,7 @@
           boardId={$page.data.boardIdParam}
           year={$page.data.yearParam}
           month={(currentMonth ?? -1) + 1}
-          {existingMonths}
+          boardsetBoards={data.boards ?? {}}
         />
       {/if}
 

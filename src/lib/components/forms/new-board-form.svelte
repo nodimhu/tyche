@@ -1,5 +1,6 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import type { BoardsetBoardsData } from "$lib/server/models/objects/boardset-boards/types";
 
   import { createEventDispatcher } from "svelte";
 
@@ -11,7 +12,12 @@
   export let boardId = "";
   export let year = new Date().getFullYear().toString();
   export let month = 1;
-  export let existingMonths: number[] = [];
+  export let boardsetBoards: BoardsetBoardsData["boards"] = {};
+
+  $: existingMonths = Object.entries(boardsetBoards[year] ?? {}).reduce(
+    (months, [_, boardData]) => [...months, boardData.month],
+    [] as number[],
+  );
 
   const dispatch = createEventDispatcher();
 
@@ -34,7 +40,7 @@
     name="year"
     required={true}
     placeholder="Year"
-    value={year}
+    bind:value={year}
     min="1900"
     max="2999"
   />
