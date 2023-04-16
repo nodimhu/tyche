@@ -10,22 +10,20 @@ My partner and I track our finances using a simple method. We are only intereste
 
 ## Try Tyche
 
-Access Tyche here: [https://tyche-sveltehack.nodim.hu](https://tyche-sveltehack.nodim.hu)
+Access Tyche here [here](https://tyche-sveltehack.nodim.hu). Registration is not possible in this demo, use the following login credentials to gain access:
 
-Registration is not possible in this demo, use the following login credentials to gain access:
-
-| Login credentials |                           |
-| ----------------- | ------------------------- |
-| Username          | **sveltehack**            |
+| Login credentials |                             |
+| ----------------- | --------------------------- |
+| Username          | **sveltehack**              |
 | Password          | **sveltehack2023IsAwesome** |
+
+The wiki pages serve as a user guide to Tyche, find them [here](https://github.com/nodimhu/tyche-sveltehack/wiki).
 
 ## Infrastructure
 
-Tyche is written in TypeScript on [SvelteKit](https://kit.svelte.dev), and deployed to [Cloudflare Pages](https://pages.cloudflare.com/).
+Tyche is written in TypeScript and Svelte on [SvelteKit](https://kit.svelte.dev), and deployed to [Cloudflare Pages](https://pages.cloudflare.com/).
 
 Persistent storage is realized with Cloudflare's [Durable Objects](https://www.cloudflare.com/products/durable-objects/) in a separate [Cloudflare Worker](https://workers.cloudflare.com/) project: [nodimhu/tyche-do-sveltehack](https://github.com/nodimhu/tyche-do-sveltehack) , which exposes a custom RPC-like API and it's also written in TypeScript.
-
-
 
 ## License notice
 
@@ -33,6 +31,6 @@ Copyright © 2023 Zsolt Nagy
 
 This work is licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
+[https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)
 
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
