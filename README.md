@@ -17,7 +17,7 @@ Registration is not possible in this demo, use the following login credentials t
 | Login credentials |                           |
 | ----------------- | ------------------------- |
 | Username          | **sveltehack**            |
-| Password          | **sveltehack2023IsGreat** |
+| Password          | **sveltehack2023IsAwesome** |
 
 ## Infrastructure
 
