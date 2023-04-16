@@ -1,106 +1,50 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import BaseInput, { type BaseInputBaseProps } from "./base-input.svelte";
 
-  export let id: string | undefined = undefined;
-  export let placeholder = "";
-  export let name = "";
-  export let required = false;
-  export let readonly = false;
-  export let disabled = false;
-  export let success = false;
-  export let danger = false;
-  export let style = "";
-  let className = "";
-  export { className as class };
-  export let autocomplete: string | null = null;
+  interface $$Props extends BaseInputBaseProps {
+    value: number | null;
+  }
 
-  export let value: number | null = 0;
+  export let value: number | null = null;
 
-  const dispatch = createEventDispatcher();
-
-  const displayNumeric = (inputElement: HTMLInputElement) => {
-    inputElement.value = value !== null ? (value * 100).toString() : "";
-  };
-
-  const displayFormatted = (inputElement: HTMLInputElement) => {
-    inputElement.value = value !== null ? value * 100 + "%" : "";
-  };
-
-  const parseInput = (inputElement: HTMLInputElement): number | null => {
-    if (!inputElement.value) {
+  const inputParser = (inputValue: string): number | null => {
+    if (!inputValue) {
       return null;
     }
 
-    const parsedInput = Number(inputElement.value);
+    const num = Number(inputValue);
 
-    if (isNaN(parsedInput)) {
+    if (isNaN(num)) {
       return null;
     }
 
-    return parsedInput / 100;
+    return num / 100;
   };
 
-  const handleChange = (inputElement: HTMLInputElement) => {
-    const newValue = parseInput(inputElement);
-
-    if (newValue === value) {
-      displayFormatted(inputElement);
-      dispatch("blur", { target: inputElement });
-      return;
+  const valueEditFormatter = (parsedValue: number | null): string => {
+    if (parsedValue === null) {
+      return "";
     }
 
-    if (required && newValue === null) {
-      inputElement.value = value !== null ? value.toString() : "";
-      displayFormatted(inputElement);
-      dispatch("blur", { target: inputElement });
-      return;
-    }
-
-    inputElement.value = newValue !== null ? (newValue * 100).toString() : "";
-    displayFormatted(inputElement);
-    dispatch("blur-change", { target: inputElement, value: newValue });
+    return (parsedValue * 100).toString();
   };
 
-  const onFocus = (event: FocusEvent) => {
-    if (event.target) {
-      const inputElement = event.target as HTMLInputElement;
-      displayNumeric(inputElement);
-      inputElement.setSelectionRange(0, inputElement.value.length);
+  const valueDisplayFormatter = (parsedValue: number | null): string => {
+    if (parsedValue === null) {
+      return "";
     }
 
-    dispatch("focus", { target: event.target });
-  };
-
-  const onBlur = (event: FocusEvent) => {
-    if (event.target) {
-      handleChange(event.target as HTMLInputElement);
-    }
-  };
-
-  const onKeyDown = (event: KeyboardEvent) => {
-    if (event.target && event.key === "Enter") {
-      handleChange(event.target as HTMLInputElement);
-      (event.target as HTMLInputElement).blur();
-    }
+    return parsedValue * 100 + "%";
   };
 </script>
 
-<input
-  {id}
-  {name}
-  {style}
-  value={value !== null ? value * 100 + "%" : ""}
-  {required}
-  {readonly}
-  {disabled}
-  {placeholder}
-  {autocomplete}
-  type="text"
-  class={`tyui-control ${className} form-control`}
-  class:readonly
-  class:danger
-  class:success
-  on:focus={onFocus}
-  on:blur={onBlur}
-  on:keydown={onKeyDown}
+<BaseInput
+  {...$$props}
+  bind:value
+  {inputParser}
+  {valueEditFormatter}
+  {valueDisplayFormatter}
+  on:blur
+  on:blur-change
+  on:focus
 />
