@@ -10,7 +10,7 @@ My partner and I track our finances using a simple method. We are only intereste
 
 ## Try Tyche
 
-Access Tyche here [here](https://tyche-sveltehack.nodim.hu). Registration is not possible in this demo, use the following login credentials to gain access:
+Access Tyche [here](https://tyche-sveltehack.nodim.hu). Registration is not possible in this demo, use the following login credentials to gain access:
 
 | Login credentials |                             |
 | ----------------- | --------------------------- |
@@ -23,7 +23,7 @@ The wiki pages serve as a user guide to Tyche, find them [here](https://github.c
 
 Tyche is written in TypeScript and Svelte on [SvelteKit](https://kit.svelte.dev), and deployed to [Cloudflare Pages](https://pages.cloudflare.com/).
 
-Persistent storage is realized with Cloudflare's [Durable Objects](https://www.cloudflare.com/products/durable-objects/) in a separate [Cloudflare Worker](https://workers.cloudflare.com/) project: [nodimhu/tyche-do-sveltehack](https://github.com/nodimhu/tyche-do-sveltehack) , which exposes a custom RPC-like API and it's also written in TypeScript.
+Persistent storage is realized with Cloudflare's [Durable Objects](https://www.cloudflare.com/products/durable-objects/) in a separate [Cloudflare Worker](https://workers.cloudflare.com/) project: [nodimhu/tyche-do-sveltehack](https://github.com/nodimhu/tyche-do-sveltehack), which exposes a custom RPC-like API and it's also written in TypeScript.
 
 ## License notice
 
