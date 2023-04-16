@@ -52,6 +52,7 @@
           boardsetId={data.boardsetIdParam}
           boardId={$page.data.boardIdParam}
           year={$page.data.yearParam}
+          month={(currentMonth ?? -1) + 1}
           {existingMonths}
         />
       {/if}
