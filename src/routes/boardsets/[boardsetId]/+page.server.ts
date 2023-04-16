@@ -51,17 +51,17 @@ export const actions: Actions = {
 
     const formData = await request.formData();
     const boardsetId = formData.get("boardsetId")?.toString();
-    const sourceBoardId = formData.get("sourceBoardId")?.toString();
+    const boardId = formData.get("boardId")?.toString();
     const year = Number(formData.get("year"));
     const month = Number(formData.get("month"));
 
-    if (!boardsetId || !sourceBoardId || !year || !month) {
+    if (!boardsetId || !boardId || !year || !month) {
       return fail(400);
     }
 
     const boards = BoardsetBoards(username, boardsetId);
 
-    const result = await boards.copyBoard({ boardId: sourceBoardId, year, month });
+    const result = await boards.copyBoard({ boardId, year, month });
 
     if (!result) {
       return fail(400);

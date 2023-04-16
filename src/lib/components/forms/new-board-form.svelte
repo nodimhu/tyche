@@ -7,13 +7,18 @@
 
   export let action: string;
   export let actionText: string;
-  export let sourceBoardId = "";
-  export let year = "";
-  export let month = "";
   export let boardsetId: string;
-  export let boardId: string;
+  export let boardId = "";
+  export let year = new Date().getFullYear().toString();
+  export let month = 1;
+  export let existingMonths: number[] = [];
 
   const dispatch = createEventDispatcher();
+
+  const monthOptions = [...Array(12).keys()].map((month) => ({
+    value: month + 1,
+    text: new Date(0, month).toLocaleDateString("en-US", { month: "long" }),
+  }));
 
   const onSubmit = () => {
     dispatch("submit");
@@ -21,7 +26,7 @@
 </script>
 
 <form method="POST" {action} on:submit={onSubmit} use:enhance>
-  <HiddenData data={{ boardsetId, boardId, sourceBoardId }} />
+  <HiddenData data={{ boardsetId, boardId }} />
 
   <input
     class="form-control"
@@ -34,16 +39,18 @@
     max="2999"
   />
 
-  <input
-    class="form-control"
-    type="number"
-    name="month"
-    required={true}
-    placeholder="Month number"
-    value={month}
-    min="1"
-    max="12"
-  />
+  <select class="form-select" name="month" placeholder="Select a month">
+    <option selected={existingMonths.includes(month)}>Select a month</option>
+    {#each monthOptions as option (option.value)}
+      {#if !existingMonths.includes(option.value)}
+        <option value={option.value} selected={option.value === month}>
+          {option.text}
+        </option>
+      {:else}
+        <option value={option.value} disabled>{option.text} (Exists)</option>
+      {/if}
+    {/each}
+  </select>
 
   <button class="btn btn-primary">
     {actionText}

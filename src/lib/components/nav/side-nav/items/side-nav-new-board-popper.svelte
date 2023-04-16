@@ -7,10 +7,11 @@
   export let title: string;
   export let action: string;
   export let actionText: string;
-  export let sourceBoardId = "";
-  export let year = "";
   export let boardsetId: string;
   export let boardId = "";
+  export let year: string | undefined = undefined;
+  export let month: number | undefined = undefined;
+  export let existingMonths: number[] = [];
 </script>
 
 <SideNavPopper {title} let:toggle>
@@ -21,10 +22,11 @@
     <NewBoardForm
       {action}
       {actionText}
-      {sourceBoardId}
-      {year}
       {boardsetId}
       {boardId}
+      {year}
+      {month}
+      {existingMonths}
       on:submit={toggle}
     />
     <button class="btn btn-outline-secondary" on:click={toggle}> Cancel </button>
