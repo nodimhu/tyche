@@ -1,10 +1,13 @@
 {
-  "useTabs": false,
-  "singleQuote": false,
-  "trailingComma": "all",
-  "printWidth": 88,
-  "importOrder": ["^svelte", "^@sveltejs", "common/", "^../", "^./"],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "importOrderParserPlugins": ["typescript", "decorators"]
+	"useTabs": false,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"printWidth": 88,
+	"plugins": ["prettier-plugin-svelte"],
+	"pluginSearchDirs": ["."],
+	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }],
+	"importOrder": ["^svelte", "^@sveltejs", "common/", "^../", "^./"],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true,
+	"importOrderParserPlugins": ["typescript", "decorators"]
 }

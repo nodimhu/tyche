@@ -1,13 +1,15 @@
 <script lang="ts">
   import { page } from "$app/stores";
-  import PageContainer from "$lib/components/page-layout/page-container.svelte";
+  import { Alert, Heading, P } from "flowbite-svelte";
 </script>
 
-<PageContainer>
-  <div class="error-page">
-    <div class="alert alert-danger">
-      <h1 class="alert-heading">Error {$page.status}</h1>
-      <h3>{$page.error?.message}</h3>
-    </div>
-  </div>
-</PageContainer>
+<div class="p-4">
+  <Alert class="red">
+    <Heading tag="h3" color="red">
+      Error {$page.status}
+    </Heading>
+    <P size="lg" color="red">
+      {$page.error?.message}
+    </P>
+  </Alert>
+</div>
