@@ -44,13 +44,9 @@ export const handleError: HandleServerError = async ({ error, event }) => {
   // error(...)-s (or throw redirect(...)-s), which are expected HTTP error responses!
   // (Also, only log in production.)
 
-  if (!dev && event.platform) {
-    const { errorLogger } = getServerServices(event.platform);
-    await errorLogger.log(error, event);
-    return;
+  if (dev) {
+    // Print error on the console in dev.
+    const timestamp = Math.round(new Date().getTime() / 1000);
+    console.error(`${timestamp} Event:`, event, `\n${timestamp} Error:`, error);
   }
-
-  // Print error on the console in dev.
-  const timestamp = Math.round(new Date().getTime() / 1000);
-  console.error(`${timestamp} Event:`, event, `\n${timestamp} Error:`, error);
 };

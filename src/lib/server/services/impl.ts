@@ -1,5 +1,4 @@
 import { type Env, PlatformOrProcessEnv } from "./env";
-import { type ErrorLogger, SentryErrorLogger } from "./error-logger";
 import type { BoardStorage } from "./storage/board";
 import { BoardDoOrFetchStorage } from "./storage/board/impl";
 import type { BoardsetBoardsStorage } from "./storage/boardset-boards";
@@ -17,7 +16,6 @@ import type { ServerServices } from "./types";
 
 export class ServerServicesSingleton implements ServerServices {
   readonly env: Env;
-  readonly errorLogger: ErrorLogger;
   readonly Users: () => UsersStorage;
   readonly UserSettings: (username: string) => UserSettingsStorage;
   readonly UserBoardsets: (username: string) => UserBoardsetsStorage;
@@ -33,7 +31,6 @@ export class ServerServicesSingleton implements ServerServices {
 
   constructor(platform?: App.Platform) {
     this.env = new PlatformOrProcessEnv(platform);
-    this.errorLogger = new SentryErrorLogger(this.env);
 
     this.Users = () => new UsersDoOrFetchStorage(this.env);
     this.UserSettings = (username: string) =>
