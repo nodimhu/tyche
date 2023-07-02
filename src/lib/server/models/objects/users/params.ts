@@ -15,10 +15,7 @@ export type CreateUserParams = {
 export type UpdateUserParams = {
   username: string;
   user: {
-    password?: {
-      current: string;
-      new: string;
-    };
+    password?: string;
   } & Partial<UserWithoutPassword>;
 };
 
