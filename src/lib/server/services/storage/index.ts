@@ -1,1 +1,0 @@
-export { StorageOperationError } from "./errors";

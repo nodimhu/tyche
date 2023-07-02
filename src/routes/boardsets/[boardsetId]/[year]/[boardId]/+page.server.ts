@@ -1,4 +1,4 @@
-import { getServerServices } from "$lib/server/services";
+import { getServerServices } from "$lib/server/services/server-services";
 
 import { fail } from "@sveltejs/kit";
 

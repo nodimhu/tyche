@@ -1,9 +1,4 @@
 <script lang="ts">
-  import type {
-    Transaction,
-    Transactions,
-  } from "$lib/server/models/objects/board/types";
-
   import CurrencyValueInput from "../controls/currency-value-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
@@ -16,7 +11,7 @@
   export let boardsetId: string;
   export let boardId: string;
 
-  export let transactions: Transactions;
+  export let transactions: TycheDO.Board.Transactions;
   export let savingsGoalPercentage = 0;
 
   export let currency: string = "USD";
@@ -34,8 +29,8 @@
       return collection;
     },
     {
-      recurring: [] as [string, Transaction][],
-      occasional: [] as [string, Transaction][],
+      recurring: [] as [string, TycheDO.Board.Transaction][],
+      occasional: [] as [string, TycheDO.Board.Transaction][],
     },
   );
 </script>

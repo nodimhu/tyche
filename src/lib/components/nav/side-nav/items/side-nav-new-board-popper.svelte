@@ -1,7 +1,6 @@
 <script lang="ts">
   import NewBoardForm from "$lib/components/forms/new-board-form.svelte";
   import PlusCircleIcon from "$lib/components/icons/bootstrap-icons/plus-circle-icon.svelte";
-  import type { BoardsetBoardsData } from "$lib/server/models/objects/boardset-boards/types";
 
   import SideNavPopper from "../common/side-nav-popper.svelte";
 
@@ -12,7 +11,7 @@
   export let boardId = "";
   export let year: string | undefined = undefined;
   export let month: number | undefined = undefined;
-  export let boardsetBoards: BoardsetBoardsData["boards"] = {};
+  export let boardsetBoards: TycheDO.BoardsetBoards.BoardsetBoardsData["boards"] = {};
 </script>
 
 <SideNavPopper {title} let:toggle>

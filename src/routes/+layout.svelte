@@ -6,16 +6,17 @@
   import CreateBoardsetPopper from "$lib/components/nav/main-nav/items/create-boardset-popper.svelte";
   import MainNav from "$lib/components/nav/main-nav/main-nav.svelte";
   import PageLayout from "$lib/components/page-layout/page-layout.svelte";
-  import type { Boardset } from "$lib/server/models/objects/user-boardsets/types.js";
   import "$lib/styles/styles.scss";
 
   import MainNavMenu from "$lib/components/nav/main-nav/common/main-nav-menu.svelte";
 
   export let data;
 
-  let currentBoardset: Boardset | undefined = undefined;
+  let currentBoardset: TycheDO.UserBoardsets.Boardset | undefined = undefined;
 
-  $: boardsetEntries = Object.entries(data.boardsets ?? {});
+  $: boardsetEntries = Object.entries(
+    (data.boardsets as TycheDO.UserBoardsets.BoardsetsData) ?? {},
+  );
 
   $: {
     currentBoardset =

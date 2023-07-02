@@ -4,8 +4,6 @@
     TYCHE_USER_JWT_COOKIE_NAME,
     TYCHE_USER_JWT_HEADER_NAME,
   } from "$lib/config/common";
-  import type { UpdateTransactionResult } from "$lib/server/models/objects/board/results";
-  import type { Transaction } from "$lib/server/models/objects/board/types";
   import { boardStore } from "$lib/stores/board-store";
   import { v4 as uuidv4 } from "uuid";
 
@@ -18,7 +16,7 @@
   export let boardsetId: string;
   export let boardId: string;
   export let transactionId: string;
-  export let transaction: Transaction;
+  export let transaction: TycheDO.Board.Transaction;
 
   export let currency = "USD";
   export let labels = true;
@@ -45,7 +43,8 @@
 
     try {
       if (response.ok) {
-        const updatedTransaction = await response.json<UpdateTransactionResult>();
+        const updatedTransaction =
+          await response.json<TycheDO.Board.UpdateTransactionResult>();
         $boardStore.transactions[transactionId] = updatedTransaction;
       }
     } catch (error) {}
@@ -72,7 +71,8 @@
 
     try {
       if (response.ok) {
-        const updatedTransaction = await response.json<UpdateTransactionResult>();
+        const updatedTransaction =
+          await response.json<TycheDO.Board.UpdateTransactionResult>();
         $boardStore.transactions[transactionId] = updatedTransaction;
       }
     } catch (error) {}

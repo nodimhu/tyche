@@ -1,4 +1,4 @@
-import { getEventContext } from "$lib/server/services";
+import { getEventContext } from "$lib/server/services/event-context";
 
 import { error, json } from "@sveltejs/kit";
 

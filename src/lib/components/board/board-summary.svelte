@@ -1,14 +1,12 @@
 <script lang="ts">
-  import type { Accounts, Transactions } from "$lib/server/models/objects/board/types";
-
   import CurrencyValueInput from "../controls/currency-value-input.svelte";
   import PercentageInput from "../controls/percentage-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
   import BoardCard from "./board-card.svelte";
 
-  export let transactions: Transactions;
-  export let accounts: Accounts;
+  export let transactions: TycheDO.Board.Transactions;
+  export let accounts: TycheDO.Board.Accounts;
   export let savingsGoalPercentage = 0;
 
   export let currency: string = "USD";

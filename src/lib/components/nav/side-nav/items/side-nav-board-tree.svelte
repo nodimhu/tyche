@@ -1,19 +1,17 @@
 <script lang="ts">
   import ChevronDownIcon from "$lib/components/icons/bootstrap-icons/chevron-down-icon.svelte";
   import ChevronRightIcon from "$lib/components/icons/bootstrap-icons/chevron-right-icon.svelte";
-  import type {
-    BoardData,
-    BoardsetBoardsData,
-  } from "$lib/server/models/objects/boardset-boards/types";
 
   import SideNavItem from "../common/side-nav-item.svelte";
 
-  export let boards: BoardsetBoardsData["boards"] | null = {};
+  export let boards: TycheDO.BoardsetBoards.BoardsetBoardsData["boards"] | null = {};
   export let selectedBoardsetId = "";
   export let selectedYear = "";
   export let selectedBoardId = "";
 
-  const sortedBoardEntries = (boardsOfYear: Record<string, BoardData>) => {
+  const sortedBoardEntries = (
+    boardsOfYear: Record<string, TycheDO.BoardsetBoards.BoardData>,
+  ) => {
     return Object.entries(boardsOfYear).sort(
       ([_A, boardDataA], [_B, boardDataB]) => boardDataA.month - boardDataB.month,
     );

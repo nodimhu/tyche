@@ -4,8 +4,6 @@
     TYCHE_USER_JWT_COOKIE_NAME,
     TYCHE_USER_JWT_HEADER_NAME,
   } from "$lib/config/common";
-  import type { UpdateAccountResult } from "$lib/server/models/objects/board/results";
-  import type { Account } from "$lib/server/models/objects/board/types";
   import { boardStore } from "$lib/stores/board-store";
   import { v4 as uuidv4 } from "uuid";
 
@@ -16,7 +14,7 @@
   export let boardsetId: string;
   export let boardId: string;
   export let accountId: string;
-  export let account: Account;
+  export let account: TycheDO.Board.Account;
   export let balance: "opening" | "closing" = "opening";
 
   export let currency = "USD";
@@ -43,7 +41,7 @@
 
     try {
       if (response.ok) {
-        const updatedAccount = await response.json<UpdateAccountResult>();
+        const updatedAccount = await response.json<TycheDO.Board.UpdateAccountResult>();
         $boardStore.accounts[accountId] = updatedAccount;
       }
     } catch (error) {}
@@ -69,7 +67,7 @@
 
     try {
       if (response.ok) {
-        const updatedAccount = await response.json<UpdateAccountResult>();
+        const updatedAccount = await response.json<TycheDO.Board.UpdateAccountResult>();
         $boardStore.accounts[accountId] = updatedAccount;
       }
     } catch (error) {}

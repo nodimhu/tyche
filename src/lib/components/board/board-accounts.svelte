@@ -1,6 +1,4 @@
 <script lang="ts">
-  import type { Accounts } from "$lib/server/models/objects/board/types";
-
   import CurrencyValueInput from "../controls/currency-value-input.svelte";
   import TextInput from "../controls/text-input.svelte";
 
@@ -12,7 +10,7 @@
   export let boardsetId: string;
   export let boardId: string;
 
-  export let accounts: Accounts;
+  export let accounts: TycheDO.Board.Accounts;
   export let type: "opening" | "closing";
 
   export let currency: string = "USD";

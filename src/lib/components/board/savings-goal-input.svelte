@@ -3,7 +3,6 @@
     TYCHE_USER_JWT_COOKIE_NAME,
     TYCHE_USER_JWT_HEADER_NAME,
   } from "$lib/config/common";
-  import type { UpdateParametersResult } from "$lib/server/models/objects/board/results";
   import { boardStore } from "$lib/stores/board-store";
 
   import PercentageInput from "../controls/percentage-input.svelte";
@@ -29,7 +28,8 @@
 
     try {
       if (response.ok) {
-        const updatedParameters = await response.json<UpdateParametersResult>();
+        const updatedParameters =
+          await response.json<TycheDO.Board.UpdateParametersResult>();
         $boardStore.parameters = updatedParameters;
       }
     } catch (error) {}

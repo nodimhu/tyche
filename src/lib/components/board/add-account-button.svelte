@@ -4,7 +4,6 @@
     TYCHE_USER_JWT_COOKIE_NAME,
     TYCHE_USER_JWT_HEADER_NAME,
   } from "$lib/config/common";
-  import type { CreateAccountResult } from "$lib/server/models/objects/board/results";
   import { boardStore } from "$lib/stores/board-store";
 
   import Tooltip from "../common/tooltip.svelte";
@@ -27,7 +26,8 @@
 
     if (response.ok) {
       try {
-        const newAccountResult = await response.json<CreateAccountResult>();
+        const newAccountResult =
+          await response.json<TycheDO.Board.CreateAccountResult>();
         const [newAccountId, newAccount] = Object.entries(newAccountResult)[0];
         $boardStore.accounts[newAccountId] = newAccount;
         $boardStore = $boardStore; // notify

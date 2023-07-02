@@ -3,7 +3,6 @@
     TYCHE_USER_JWT_COOKIE_NAME,
     TYCHE_USER_JWT_HEADER_NAME,
   } from "$lib/config/common";
-  import type { CreateTransactionResult } from "$lib/server/models/objects/board/results";
   import { boardStore } from "$lib/stores/board-store";
 
   import Tooltip from "../common/tooltip.svelte";
@@ -33,7 +32,8 @@
 
     if (response.ok) {
       try {
-        const newTransactionResult = await response.json<CreateTransactionResult>();
+        const newTransactionResult =
+          await response.json<TycheDO.Board.CreateTransactionResult>();
         const [newTransactionId, newTransaction] =
           Object.entries(newTransactionResult)[0];
         $boardStore.transactions[newTransactionId] = newTransaction;

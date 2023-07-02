@@ -1,6 +1,6 @@
 import { dev } from "$app/environment";
 import { TYCHE_USER_JWT_HEADER_NAME } from "$lib/config/common";
-import { getServerServices } from "$lib/server/services";
+import { getServerServices } from "$lib/server/services/server-services";
 
 import { type Handle, type HandleServerError, error, redirect } from "@sveltejs/kit";
 
