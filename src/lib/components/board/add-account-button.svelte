@@ -1,11 +1,9 @@
 <script lang="ts">
   import PlusIcon from "$lib/components/icons/bootstrap-icons/plus-icon.svelte";
-  import {
-    TYCHE_USER_JWT_COOKIE_NAME,
-    TYCHE_USER_JWT_HEADER_NAME,
-  } from "$lib/config/common";
+  import { TYCHE_USER_JWT_HEADER_NAME } from "$lib/config/common";
   import type { CreateAccountResult } from "$lib/server/models/objects/board/results";
   import { boardStore } from "$lib/stores/board-store";
+  import { getTycheUserJWT } from "$lib/utils/cookie";
 
   import Tooltip from "../common/tooltip.svelte";
 
@@ -13,16 +11,12 @@
   export let boardId: string;
 
   const addAccount = async () => {
-    const tycheUserJwt = document.cookie
-      .split(";")
-      .find((cookie) => cookie.startsWith(TYCHE_USER_JWT_COOKIE_NAME))
-      ?.split("=")[1]
-      .trim();
+    const tycheUserJwt = getTycheUserJWT();
 
     const response = await fetch(`/api/boardsets/${boardsetId}/${boardId}/account`, {
       method: "POST",
       body: JSON.stringify({ name: "New Account" }),
-      headers: { [TYCHE_USER_JWT_HEADER_NAME]: tycheUserJwt ?? "" },
+      headers: { [TYCHE_USER_JWT_HEADER_NAME]: tycheUserJwt },
     });
 
     if (response.ok) {

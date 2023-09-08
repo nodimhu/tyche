@@ -1,9 +1,6 @@
 <script lang="ts">
   import TextInput from "$lib/components/controls/text-input.svelte";
-  import {
-    TYCHE_USER_JWT_COOKIE_NAME,
-    TYCHE_USER_JWT_HEADER_NAME,
-  } from "$lib/config/common";
+  import { TYCHE_USER_JWT_HEADER_NAME } from "$lib/config/common";
   import type { UpdateAccountResult } from "$lib/server/models/objects/board/results";
   import type { Account } from "$lib/server/models/objects/board/types";
   import { boardStore } from "$lib/stores/board-store";
@@ -11,6 +8,7 @@
 
   import InlineTrash from "../common/inline-trash.svelte";
 
+  import { getTycheUserJWT } from "$lib/utils/cookie";
   import CurrencyValueInput from "../controls/currency-value-input.svelte";
 
   export let boardsetId: string;
@@ -26,18 +24,14 @@
   const onChangeName = async (
     event: CustomEvent<{ target: HTMLInputElement; value: string }>,
   ) => {
-    const tycheUserJwt = document.cookie
-      .split(";")
-      .find((cookie) => cookie.startsWith(TYCHE_USER_JWT_COOKIE_NAME))
-      ?.split("=")[1]
-      .trim();
+    const tycheUserJwt = getTycheUserJWT();
 
     const response = await fetch(
       `/api/boardsets/${boardsetId}/${boardId}/account` + `?accountId=${accountId}`,
       {
         method: "PUT",
         body: JSON.stringify({ name: event.detail.value }),
-        headers: { [TYCHE_USER_JWT_HEADER_NAME]: tycheUserJwt ?? "" },
+        headers: { [TYCHE_USER_JWT_HEADER_NAME]: tycheUserJwt },
       },
     );
 
@@ -52,11 +46,7 @@
   const onChangeAmount = async (
     event: CustomEvent<{ target: HTMLInputElement; value: number }>,
   ) => {
-    const tycheUserJwt = document.cookie
-      .split(";")
-      .find((cookie) => cookie.startsWith(TYCHE_USER_JWT_COOKIE_NAME))
-      ?.split("=")[1]
-      .trim();
+    const tycheUserJwt = getTycheUserJWT();
 
     const response = await fetch(
       `/api/boardsets/${boardsetId}/${boardId}/account` + `?accountId=${accountId}`,
@@ -76,17 +66,13 @@
   };
 
   const onDelete = async () => {
-    const tycheUserJwt = document.cookie
-      .split(";")
-      .find((cookie) => cookie.startsWith(TYCHE_USER_JWT_COOKIE_NAME))
-      ?.split("=")[1]
-      .trim();
+    const tycheUserJwt = getTycheUserJWT();
 
     const response = await fetch(
       `/api/boardsets/${boardsetId}/${boardId}/account` + `?accountId=${accountId}`,
       {
         method: "DELETE",
-        headers: { [TYCHE_USER_JWT_HEADER_NAME]: tycheUserJwt ?? "" },
+        headers: { [TYCHE_USER_JWT_HEADER_NAME]: tycheUserJwt },
       },
     );
 
